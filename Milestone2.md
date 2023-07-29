@@ -1,37 +1,37 @@
-= Project Description
+# Project Description
 The domain of our application is to develop a simple game platform, which will focus on providing detailed game information of League of Legends that associate with player accounts to the summoners once they log in. The main functionality will include showing the summoner's profile, favorite game modes, champions and skins owned in account, recorded players’ statistics on the champions, learning about store information, champion’s ability, non-player characters and other in-game information.
 
-= Diagram Improvement 
+# Diagram Improvement 
 ![](CS304_M2.drawio.png)
 
-Based on the Milestone 1, we realize that the relationship between Friend and Summoner is unary, which causes that we don’t have enough number of entities for the designed ER diagram. Therefore, we add the entity of Game Mode that has different names(primary key) and confrontation sides. Summoners can select their favorite game modes. Considering the case that some summoners don’t really have a favorite mode and some game modes can be selected by nobody(no one likes it), hence we create the relation as many to many without the participation constraint.
-We also modified some relationships and constraint this time:
-1. We add the total participation in the relationship between summoner and non-player character, since we consider that every summoner must learn about the non-player characters in order to play the game (even for beginners). Otherwise, it doesn’t make sense that players play the game without knowing the gameplay setting.
-2. We also add the total participation in the relationship for sell1 and sell2 and change the relation from “one(store) to many(champion,skin)” to “many to many”. There is the fact that every summoner has an independent store, since every summoner prefers and purchases different items. If person A purchases the itemA in store while personB doesn’t, the itemA will still exist in personB’s store. Therefore, any champion summoner can play must be in the store, and every store must sell all champions to every summoner. Similarly, it also applies to the relation between stores and skins 
-The main difference from the last time is that we reconsider the functionality of the statistics entity. Statistics are produced by the champion summoner played, it will record how many kills, how many assists, how many deaths, how much gold earned and how many roaming scores this champion got in the past game.  We used to think that the entity is just a weak entity of the champion, since it will be meaningless if the champion entity does not exist anymore. However, the fact is that the champion is selected and played by the summoners and the purpose of recording the statistics is to reflect on the performance of the summoner. Hence we make the relation between summoner and champion as the aggregation, and design the statistics entity as a weak entity of the aggregation.     
+- Based on the Milestone 1, we realize that the relationship between Friend and Summoner is unary, which causes that we don’t have enough number of entities for the designed ER diagram. Therefore, we add the entity of Game Mode that has different names(primary key) and confrontation sides. Summoners can select their favorite game modes. Considering the case that some summoners don’t really have a favorite mode and some game modes can be selected by nobody(no one likes it), hence we create the relation as many to many without the participation constraint.
+- We also modified some relationships and constraint this time:
+    1. We add the total participation in the relationship between summoner and non-player character, since we consider that every summoner must learn about the non-player characters in order to play the game (even for beginners). Otherwise, it doesn’t make sense that players play the game without knowing the gameplay setting.
+    2. We also add the total participation in the relationship for sell1 and sell2 and change the relation from “one(store) to many(champion,skin)” to “many to many”. There is the fact that every summoner has an independent store, since every summoner prefers and purchases different items. If person A purchases the itemA in store while personB doesn’t, the itemA will still exist in personB’s store. Therefore, any champion summoner can play must be in the store, and every store must sell all champions to every summoner. Similarly, it also applies to the relation between stores and skins 
+- The main difference from the last time is that we reconsider the functionality of the statistics entity. Statistics are produced by the champion summoner played, it will record how many kills, how many assists, how many deaths, how much gold earned and how many roaming scores this champion got in the past game.  We used to think that the entity is just a weak entity of the champion, since it will be meaningless if the champion entity does not exist anymore. However, the fact is that the champion is selected and played by the summoners and the purpose of recording the statistics is to reflect on the performance of the summoner. Hence we make the relation between summoner and champion as the aggregation, and design the statistics entity as a weak entity of the aggregation.     
 
 
-Schema
+# Schema
 Summoner(id: char(20), level: integer, rank: char(20), money: integer)
-primary key: id
-candidate key: none 
-foreign key: none
+- primary key: id
+- candidate key: none 
+- foreign key: none
 
 Game_mode(name: char(20), description: char(1000))
-primary key: name
-candidate key: none 
-foreign key: none
+- primary key: name
+- candidate key: none 
+- foreign key: none
 
 Non-player_character(name: char(20), health: integer)
-primary key: name
-candidate key: none 
-foreign key: none
+- primary key: name
+- candidate key: none 
+- foreign key: none
 
 Monster(name: char(20), buff: char(20), type: char(20))
-primary key: name
-candidate key: none 
-foreign key: name reference non-player character
-constraint: There exists a total and disjoint ISA relationship between non-player character and monster, hence monster must have a name
+- primary key: name
+- candidate key: none 
+- foreign key: name reference non-player character
+- constraint: There exists a total and disjoint ISA relationship between non-player character and monster, hence monster must have a name
 
 Minion(name: char(20), side: char(20),  type: char(20))
 primary key: name
