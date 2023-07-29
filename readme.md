@@ -10,6 +10,9 @@ This repository hosts the work for a team project in CPSC 304: Introduction to R
 
 The goal of this project is to understand the end-to-end process of designing and implementing a relational database system. The application for which the database is designed is a
 
+## Timeline & Task breakdown
+
+[Task](TimeLine.md)
 
 ## Collaboration
 
