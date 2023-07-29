@@ -12,6 +12,7 @@ The domain of our application is to develop a simple game platform, which will f
 
 
 # Schema
+
 Summoner(id: char(20), level: integer, rank: char(20), money: integer)
 - primary key: id
 - candidate key: none 
@@ -34,132 +35,131 @@ Monster(name: char(20), buff: char(20), type: char(20))
 - constraint: There exists a total and disjoint ISA relationship between non-player character and monster, hence monster must have a name
 
 Minion(name: char(20), side: char(20),  type: char(20))
-primary key: name
-candidate key: none 
-foreign key: name reference non-player character
-constraint: There exists a total and disjoint ISA relationship between non-player character and minion, hence minion must have a name
+- primary key: name
+- candidate key: none 
+- foreign key: name reference non-player character
+- constraint: There exists a total and disjoint ISA relationship between non-player character and minion, hence minion must have a name
 
 Turret(name: char(20), position: char(20))
-primary key: name
-candidate key: none 
-foreign key: name reference non-player character
-constraint: There exists a total and disjoint ISA relationship between non-player character and turret, hence turret must have a name
+- primary key: name
+- candidate key: none 
+- foreign key: name reference non-player character
+- constraint: There exists a total and disjoint ISA relationship between non-player character and turret, hence turret must have a name
 
 Select_favorite(id: char(20), name: char(20))
-primary key: id, name
-candidate key: none 
-foreign key: id reference summoner, name reference game mode
-
+- primary key: id, name
+- candidate key: none 
+- foreign key: id reference summoner, name reference game mode
 
 Learn_about(id: char(20), name: char(20))
-primary key: id, name
-candidate key: none 
-foreign key: id reference summoner, name reference non-player character
-constraint: All summoners must learn about the non-player characters while all non-player characters must be learned by at least one summoner. 
-
+- primary key: id, name
+- candidate key: none 
+- foreign key: id reference summoner, name reference non-player character
+- constraint: All summoners must learn about the non-player characters while all non-player characters must be learned by at least one summoner. 
 
 Champion (name: char(20), cost: integer, epithet: char(20), region: char(20), background story: char(1000))
-primary key: name
-candidate key: none 
-foreign key: none
-constraint: All champions should be sold by at least one store
+- primary key: name
+- candidate key: none 
+- foreign key: none
+- constraint: All champions should be sold by at least one store
 
 Play(id:char(20), name:char(20))
-primary key: id, name
-candidate key: none 
-foreign key: id reference summoner, name reference champion
-
+- primary key: id, name
+- candidate key: none 
+- foreign key: id reference summoner, name reference champion
+ 
 Statistic_produced(id: char(20), name: char(20), type:char(20), value:integer)
-primary key: id, name, type
-candidate key: none 
-foreign key:  id reference summoner, name reference champion
-constraint: the statistic_produced is the weak entity dependent on the aggregation of summoner and champion
+- primary key: id, name, type
+- candidate key: none 
+- foreign key:  id reference summoner, name reference champion
+- constraint: the statistic_produced is the weak entity dependent on the aggregation of summoner and champion
 
 Store_visit(storeID:char(20), promotion:char(20),id:char(20))
-primary key: storeID
-candidate key: id
-foreign key:  id reference summoner
-constraint:1. All skins should be sold by at least one store, all stores should sell at least one skin  2.every summoner can visit one store
+- primary key: storeID
+- candidate key: id
+- foreign key:  id reference summoner
+- constraint:1. All skins should be sold by at least one store, all stores should sell at least one skin  2.every summoner can visit one store
 
 Sell1(name:char(20), storeID:char(20))
-primary key: name, storeID
-candidate key: none 
-foreign key: name reference champion, storeID reference store
-constraint: All stores should sell at least one champion
-
+- primary key: name, storeID
+- candidate key: none 
+- foreign key: name reference champion, storeID reference store
+- constraint: All stores should sell at least one champion
 
 Sell2(name:char(20), storeID:char(20))
-primary key: name, storeID
-candidate key: none 
-foreign key: name reference skin, storeID reference store
-constraint: All stores should sell at least one skin
+- primary key: name, storeID
+- candidate key: none 
+- foreign key: name reference skin, storeID reference store
+- constraint: All stores should sell at least one skin
 
 Skin_decorate(skin name: char(20), type: char(20), cost: integer, champion name: char(20))
-primary key: skin name
-candidate key: none 
-foreign key: champion name reference champion
-constraint: one champion can be decorated by many skins, every skin must decorate exact one champion
+- primary key: skin name
+- candidate key: none 
+- foreign key: champion name reference champion
+- constraint: one champion can be decorated by many skins, every skin must decorate exact one champion
 
 Ability_owned(ability name: char(20), cooldown: integer, key: char(20), description:(1000), champion name: char(20))
-primary key: ability name
-candidate key: none 
-foreign key: champion name reference champion
-constraint: one champion must have at least one ability, each ability belongs to exact one champion
+- primary key: ability name
+- candidate key: none 
+- foreign key: champion name reference champion
+- constraint: one champion must have at least one ability, each ability belongs to exact one champion
 
 
-Functional Dependencies
+# Functional Dependencies
+
 Summoner(id: char(20), level: integer, rank: char(20), money: integer)
-id → level, rank, money
+- id → level, rank, money
 
 Game_mode(name: char(20), description:char(1000))
-name → description
+- name → description
 
 Non-player_character(name: char(20), health: integer)
-name → health
+- name → health
 
 Monster(name: char(20), buff: char(20), type: char(20))
-name → buff, type
+- name → buff, type
 
 Minion(name: char(20), side: char(20),  type: char(20))
-name → side, type
+- name → side, type
 
 Turret(name: char(20), position: char(20))
-name → position
+- name → position
 
 Select_favorite(id: char(20), name: char(20))
-no non-trivial FD
+- no non-trivial FD
 
 Learn about(id: char(20), Name: char(20))
-no non-trivial FD
+- no non-trivial FD
 
 Champion (name: char(20), cost: integer, epithet: char(20), region: char(20), background story: char(1000))
-name → cost, epithet, region, background story
-epithet → background story
+- name → cost, epithet, region, background story
+- epithet → background story
 
 Play(id:char(20), name:char(20))
-no non-trivial FD
+- no non-trivial FD
 
 Statistic_produced(id: char(20), name: char(20), type:char(20), value:integer)
-id, name, type → value
+- id, name, type → value
 
 Store_visit(storeID:char(20), promotion:char(20), id:char(20))
-storeID → promotion, id
-id → storeID, promotion
+- storeID → promotion, id
+- id → storeID, promotion
 
 Sell1(name:char(20), storeID:char(20))
-no non-trivial FD
+- no non-trivial FD
 
 Sell2(name:char(20), storeID:char(20))
-no non-trivial FD
+- no non-trivial FD
 
 Skin_decorate(skin name: char(20), type: char(20), cost: integer, champion name: char(20))
-skin name → type, cost, champion name
-type → cost
+- skin name → type, cost, champion name
+- type → cost
 
 Ability_owned(ability name: char(20), cooldown: integer, key: char(20), description:(1000), champion name: char(20))
-ability name → cooldown, key, description, champion name
+- ability name → cooldown, key, description, champion name
 
-Normalization
+# Normalization
+
 Summoner(id: char(20), level: integer, rank: char(20), money: integer)
 FD: id → level, rank, money
 Normal form: BCNF 
