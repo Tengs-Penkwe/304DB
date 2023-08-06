@@ -34,14 +34,15 @@ Follow these steps to get the project up and running on your local machine:
 
 3. **Configure Web Server**: Configure your web server to serve the project's root directory. If using Apache, you might need to update the `httpd.conf` file or create a virtual host configuration.
 
-4. **Start Web Server**: Start your web server if it's not already running.
+4. **Start PHP Server (If Using Built-in Server)**: If you're using PHP's built-in server, navigate to the project directory in the terminal and run:
+```
+php -S localhost:8000
+```
 
 ### Usage
 
-1. **Navigate to Project URL**: Open a web browser and navigate to the URL where your server is hosting the project. The URL might look like:
-   ```
-   http://localhost/your_project_directory
-   ```
+1. **Navigate to Project URL**: Open a web browser and navigate to the URL where your server is hosting the project. If using PHP's built-in server, the URL might look like:
+http://localhost:8000
 
 2. **Explore the Platform**: Use the navigation links to explore different sections of the League of Legends Game Platform, such as Profiles, Champions, and Store.
 
