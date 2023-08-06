@@ -27,14 +27,12 @@ Follow these steps to get the project up and running on your local machine:
 
 1. **Clone the Repository**: Clone the repository to your web server's root directory using the command:
    ```
-   git clone https://github.com/your_repository_url.git
+   git clone https://github.students.cs.ubc.ca/CPSC304-2023S-T2/project_c4u9q_i9b1i_o2k7c.git
    ```
 
-2. **Configure Database Permissions**: Ensure the permissions on the SQLite database file (`LOL.db`) are set correctly. The web server must have read and write access.
+2. **Install php**:
 
-3. **Configure Web Server**: Configure your web server to serve the project's root directory. If using Apache, you might need to update the `httpd.conf` file or create a virtual host configuration.
-
-4. **Start PHP Server (If Using Built-in Server)**: If you're using PHP's built-in server, navigate to the project directory in the terminal and run:
+3. **Start PHP Server (If Using Built-in Server)**: If you're using PHP's built-in server, navigate to the project directory in the terminal and run:
 ```
 php -S localhost:8000
 ```
