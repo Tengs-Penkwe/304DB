@@ -26,10 +26,10 @@ INSERT INTO NonPlayerCharacter(name, health) VALUES
 ('minion3', 100)
 ('minion4', 80)
 ('minion5', 250)
-('turret1', 5000);
-('turret2', 5000);
-('turret3', 5000);
-('turret4', 5000);
+('turret1', 5000),
+('turret2', 5000),
+('turret3', 5000),
+('turret4', 5000),
 ('turret5', 5000);
 
 -- Populating the Monster table

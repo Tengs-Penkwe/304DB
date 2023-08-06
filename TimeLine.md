@@ -46,3 +46,6 @@ Milestone 4 (Ongoing):
 - August 8
   - Complete project and commit all the files (everyone)
   - Final check on project sanity (everyone)
+
+
+
