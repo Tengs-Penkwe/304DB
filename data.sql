@@ -84,11 +84,17 @@ VALUES ('Rookie', 'monsterA'),
 
 -- Populating the EpithetBackground table
 INSERT INTO EpithetBackground(epithet, background_story)
-VALUES ('The Unforgiven', 'The story of a sword is inked in blood'),
-       ('The Exile', 'It is all about broken-sword wielding exile and her journey towards fixing her broken sword'),
-       ('The Chain Warden', 'Thresh is an ambitious and restless spirit of the Shadow Isles'),
-       ('The Sad Mummy', 'a lonely and melancholy soul, roaming the world in search of a friend'),
-       ('The Blind Monk', 'They see only a blind man, I will open their eyes');
+VALUES 
+('The Unforgiven', 
+ 'In a land painted with betrayal and deception, one sword stood as a beacon of justice. Yet, even it fell victim to the corrosive nature of lies. Its gleaming blade tarnished, not with use, but with treachery. The story of this sword is not one of heroes or villains, but of redemption and vengeance. It is a tale inked with blood, each droplet a testament to its unyielding spirit.'),
+('The Exile', 
+ 'In the vastness of an unforgiving world, a broken-sword wielding exile trudged through deserts and mountains. Her sword, once a symbol of honor, now shattered, just like the trust she once held. Each step, a journey towards mending not just the blade, but her fragmented soul. Through tempests and trials, she seeks not revenge, but atonement and a chance to once again stand tall.'),
+('The Chain Warden', 
+ 'In the haunting mist of the Shadow Isles, Thresh emerged as a spirit not bound by the melancholy of his peers. Ambitious, relentless, and ever scheming, he seeks not just souls, but the pure ecstasy in their torment. His chains, an extension of his wicked will, are always ready to ensnare those who dare to venture close, drawing them into an abyss of eternal despair.'),
+('The Sad Mummy', 
+ 'Legend speaks of a time when joy and laughter filled the world, and among them was a child mummy, gleeful and radiant. But a curse, cruel and unyielding, tore away his happiness, leaving him a lonely and melancholy soul. Now, he roams the world, wrapped in bandages and sorrow, yearning for the embrace of a friend, hoping to mend his broken heart.'),
+('The Blind Monk', 
+ 'In the heart of an ancient monastery, lived a monk whose sight was taken not by age or ailment, but by choice. For in blindness, he saw the world more clearly than those with sight. With every resonating echo and whispering wind, he perceived truths that remained hidden from the world. Many see only a blind man, but in battle, with swift kicks and resonating strikes, he opens their eyes to the profound depths of his abilities.');
 
 -- Populating the ChampionBCNF table
 INSERT INTO ChampionBCNF(name, cost, region, epithet)
