@@ -45,7 +45,7 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
     <div class="container">
         <div class="row">
             <div class="col-md-4 feature">
-                <h3>Profile</h3>
+                <h3>Summoners</h3>
                 <p>Explore your summoner's profile, including stats, friends, and achievements.</p>
             </div>
             <div class="col-md-4 feature">
