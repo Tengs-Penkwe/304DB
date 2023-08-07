@@ -77,12 +77,6 @@ $abilities = $query_abilities->fetchAll(PDO::FETCH_ASSOC);
             font-size: 36;
             font-weight: 600;
         }
-        .ability {
-            padding: 15px;
-            border: 1px solid #e0e0e0;
-            margin: 10px 0;
-            border-radius: 5px;
-        }
         .ability-name {
             display: block;
             font-family: 'Raleway', sans-serif;
@@ -159,6 +153,21 @@ $abilities = $query_abilities->fetchAll(PDO::FETCH_ASSOC);
             font-weight: bold;
             box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
         }
+        @media (max-width: 800px) {
+          .ability-card {
+              max-width: calc(100% - 10px); /* Makes it one card per row in small screens */
+          }
+        }
+        .cooldown {
+          position: absolute;
+          top: 2px; /* Adjust as needed */
+          left: 2px; /* Adjust as needed */
+          background-color: rgba(0, 0, 0, 0); /* A semi-transparent dark background */
+          padding: 2px 5px;
+          border-radius: 2px; /* Softens the corners */
+          color: #f4f4f4; /* A light grey text */
+          font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -179,7 +188,7 @@ $abilities = $query_abilities->fetchAll(PDO::FETCH_ASSOC);
                     <div class="key-container">
                         <span class="key"><?= htmlspecialchars($ability['key']) ?></span>
                     </div>
-                    <p><strong>Cooldown:</strong> <?= $ability['cooldown'] ?> seconds</p>
+                    <p class="cooldown"> <?= $ability['cooldown'] ?> s</p>
                     <p class="ability-description"><?= htmlspecialchars($ability['description']) ?></p>
                 </div>
             <?php endforeach; ?>
