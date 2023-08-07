@@ -6,6 +6,7 @@ $db = new PDO('sqlite:../database/LOL.db');
 $query = $db->query("SELECT * FROM Summoner");
 $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
 
+$id = $_POST['ID'];
 // HTML for displaying the Summoner table
 ?>
 
@@ -33,8 +34,8 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="profile.php">Profile</a></li>
                 <li class="nav-item"><a class="nav-link" href="ingame.php">In Game Info</a></li>
-                <li class="nav-item"><a class="nav-link" href="champions.php">Champions</a></li>
-                <li class="nav-item"><a class="nav-link" href="store.php">Store</a></li>
+                <li class="nav-item"><a class="nav-link" href="champions.php>">Champions</a></li>
+                <li class="nav-item"><a class="nav-link" href="store.php?id=<?php echo $id?>">Store</a></li>
             </ul>
         </div>
     </nav>
@@ -61,29 +62,7 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <div class="container mt-5">
-        <h1 class="text-center">Summoners</h1>
-        <table class="table table-striped table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Level</th>
-                    <th>Rank</th>
-                    <th>Money</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($summoners as $summoner): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($summoner['id']) ?></td>
-                        <td><?= htmlspecialchars($summoner['level']) ?></td>
-                        <td><?= htmlspecialchars($summoner['rank']) ?></td>
-                        <td><?= htmlspecialchars($summoner['money']) ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+
 </body>
 </html>
 
