@@ -1,3 +1,16 @@
+INSERT INTO EntityImages(entity_type, entity_name, image_url)
+VALUES
+('Summoner', 'Rookie', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/profileicon/934.png'),
+('Summoner', 'Uzi', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/profileicon/7.png'),
+('Summoner', 'Theshy', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/profileicon/28.png'),
+('Summoner', 'Caps', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/profileicon/23.png'),
+('Summoner', 'Lwx', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/profileicon/29.png'),
+('Champion', 'Yasuo', 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Yasuo_0.jpg'),
+('Champion', 'Riven', 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Riven_0.jpg'),
+('Champion', 'Thresh', 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Thresh_0.jpg'),
+('Champion', 'Amumu', 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Amumu_0.jpg'),
+('Champion', 'Lee Sin', 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/LeeSin_0.jpg');
+
 -- Populating the Summoner table
 INSERT INTO Summoner(id, level, rank, money)
 VALUES ('Rookie', 10, 'Gold', 5000),
