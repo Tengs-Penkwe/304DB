@@ -4,8 +4,17 @@ require_once('../config/database.php');
 $db = getDBConnection();
 
 // Query the Summoner table
-$query = $db->query("SELECT Summoner.id, level, rank, money, GROUP_CONCAT(ChampionBCNF.name) AS champions FROM Summoner LEFT JOIN Play ON Summoner.id = Play.id LEFT JOIN ChampionBCNF ON Play.name = ChampionBCNF.name GROUP BY Summoner.id");
+// Query the Summoner table, including the images
+$query = $db->query("
+    SELECT Summoner.id, level, rank, money, GROUP_CONCAT(ChampionBCNF.name) AS champions, EntityImages.image_url 
+    FROM Summoner 
+    LEFT JOIN Play ON Summoner.id = Play.id 
+    LEFT JOIN ChampionBCNF ON Play.name = ChampionBCNF.name 
+    LEFT JOIN EntityImages ON Summoner.id = EntityImages.entity_name AND EntityImages.entity_type = 'Summoner' 
+    GROUP BY Summoner.id
+");
 $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -14,12 +23,34 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-size: 18px;
+        }
+        h1 {
+            font-size: 36px;
+            color: #333;
+            margin-top: 30px;
+        }
+        .champion-link {
+            display: inline-block;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .champion-link:hover {
+            background-color: #f2f2f2;
+        }
+        img {
+            border-radius: 5px;
+        }
+    </style>
     <title>Summoners Profiles | League of Legends Game Platform</title>
 </head>
 <body>
     <div class="container mt-5">
         <h1 class="text-center">Summoners Profiles</h1>
-        <table class="table table-striped table-bordered">
+        <table class="table table-hover table-bordered">
             <thead class="thead-dark">
                 <tr>
                     <th>Image</th>
@@ -35,14 +66,14 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
                     $champions = explode(',', $summoner['champions']);
                 ?>
                     <tr>
-                        <td><img src="../images/<?= htmlspecialchars($summoner['id']) ?>.jpg" alt="Image of <?= htmlspecialchars($summoner['id']) ?>" width="50"></td>
+                        <td><img src="<?= htmlspecialchars($summoner['image_url']) ?>" alt="Image of <?= htmlspecialchars($summoner['id']) ?>" width="50"></td>
                         <td><?= htmlspecialchars($summoner['id']) ?></td>
                         <td><?= htmlspecialchars($summoner['level']) ?></td>
                         <td><?= htmlspecialchars($summoner['rank']) ?></td>
                         <td><?= htmlspecialchars($summoner['money']) ?></td>
                         <td>
                             <?php foreach ($champions as $champion): ?>
-                                <a href="champion.php?name=<?= urlencode($champion) ?>"><?= htmlspecialchars($champion) ?></a><br>
+                                <a class="champion-link" href="champion.php?name=<?= urlencode($champion) ?>"><?= htmlspecialchars($champion) ?></a><br>
                             <?php endforeach; ?>
                         </td>
                     </tr>

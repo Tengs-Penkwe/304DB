@@ -85,7 +85,6 @@ $id = $_POST['ID'];
             </tbody>
         </table>
     </div>
-<img src="../../images/banner.jpg" alt="Italian Trulli">
 </body>
 </html>
 

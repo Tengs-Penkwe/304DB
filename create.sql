@@ -1,3 +1,11 @@
+CREATE TABLE EntityImages
+(
+    entity_id   INT AUTO_INCREMENT PRIMARY KEY,
+    entity_type CHAR(20), -- E.g., 'Champion', 'Summoner', 'Item'
+    entity_name CHAR(20),
+    image_url   CHAR(255)
+);
+
 CREATE TABLE Summoner
 (
     id    CHAR(20) PRIMARY KEY,
