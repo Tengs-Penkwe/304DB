@@ -11,8 +11,12 @@ $query = $db->prepare('
     WHERE name = :name
 ');
 $query->execute([':name' => $champion_name]);
-
 $champion = $query->fetch(PDO::FETCH_ASSOC);
+
+// Query to fetch the image URL
+$query = $db->prepare('SELECT image_url FROM EntityImages WHERE entity_type = :type AND entity_name = :name');
+$query->execute([':type' => 'Champion', ':name' => $champion_name]);
+$image = $query->fetch(PDO::FETCH_ASSOC);
 
 if (!$champion) {
     echo 'Champion not found!';
@@ -60,6 +64,9 @@ if (!$champion) {
 <body>
     <div class="container">
         <h1><?= htmlspecialchars($champion['name']) ?></h1>
+        <?php if ($image): ?>
+            <img src="<?= $image['image_url'] ?>" alt="<?= htmlspecialchars($champion['name']) ?>">
+        <?php endif; ?>
         <p>Cost: <?= $champion['cost'] ?></p>
         <p>Region: <?= $champion['region'] ?></p>
         <p>Epithet: <?= $champion['epithet'] ?></p>
