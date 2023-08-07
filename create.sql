@@ -102,7 +102,7 @@ CREATE TABLE Play
     FOREIGN KEY (id) REFERENCES Summoner
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    FOREIGN KEY (name) REFERENCES Champion
+    FOREIGN KEY (name) REFERENCES ChampionBCNF
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
@@ -117,7 +117,7 @@ CREATE TABLE StatisticProduced
     FOREIGN KEY (id) REFERENCES Summoner
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    FOREIGN KEY (name) REFERENCES Champion
+    FOREIGN KEY (name) REFERENCES ChampionBCNF
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
@@ -125,7 +125,7 @@ CREATE TABLE StatisticProduced
 CREATE TABLE StoreVisit
 (
     storeID   CHAR(20) PRIMARY KEY,
-    promotion CHAR(20),
+    promotion INT,
     id        CHAR(20),
     FOREIGN KEY (id) REFERENCES Summoner
         ON DELETE CASCADE
@@ -138,10 +138,10 @@ CREATE TABLE Sell1
     name    CHAR(20),
     storeID CHAR(20),
     PRIMARY KEY (name, storeID),
-    FOREIGN KEY (name) REFERENCES Champion
+    FOREIGN KEY (name) REFERENCES ChampionBCNF
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    FOREIGN KEY (storeID) REFERENCES Store
+    FOREIGN KEY (storeID) REFERENCES StoreVisit
         ON DELETE SET NULL
         ON UPDATE CASCADE
 );
@@ -151,10 +151,10 @@ CREATE TABLE Sell2
     storeID CHAR(20),
     name    CHAR(20),
     PRIMARY KEY (name, storeID),
-    FOREIGN KEY (name) REFERENCES Skin
+    FOREIGN KEY (name) REFERENCES SkinDecorateBCNF
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    FOREIGN KEY (storeID) REFERENCES Store
+    FOREIGN KEY (storeID) REFERENCES StoreVisit
         ON DELETE SET NULL
         ON UPDATE CASCADE
 );
@@ -181,7 +181,7 @@ CREATE TABLE AbilityOwned
     key           CHAR(20),
     description   CHAR(1000),
     champion_name CHAR(20) NOT NULL,
-    FOREIGN KEY (champion_name) REFERENCES Champion
+    FOREIGN KEY (champion_name) REFERENCES ChampionBCNF
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );

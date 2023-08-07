@@ -1,13 +1,14 @@
 <?php
 // Connect to the SQLite database
-$db = new PDO('sqlite:../database/LOL.db');
+require '../config/database.php';
+$db = getDBConnection();
 $id =  $_GET['id'];
 // Query the Summoner table
-$query = $db->prepare("SELECT name FROM StoreVisit SV, Sell1 S WHERE id =? AND SV.storeID = S.storeID");
+$query = $db->prepare("SELECT * FROM StoreVisit SV, Sell1 S, ChampionBCNF C WHERE id =? AND SV.storeID = S.storeID 
+                                                          AND C.name = S.name");
 $query->execute([$id]);
-$result = $query->fetch();
+$result = $query->fetchAll(PDO::FETCH_ASSOC);
 
-echo $result[0];
 
 ?>
 
@@ -22,7 +23,6 @@ echo $result[0];
         body { background-color: #f5f5f5; }
         .navbar { background-color: #ffcc00; }
         .jumbotron { background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ec6b653d-20ae-41d7-8e78-5a2ec054db72/d7nzyi4-717deda0-3474-46d1-83d5-4f064cd966ad.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2VjNmI2NTNkLTIwYWUtNDFkNy04ZTc4LTVhMmVjMDU0ZGI3MlwvZDduenlpNC03MTdkZWRhMC0zNDc0LTQ2ZDEtODNkNS00ZjA2NGNkOTY2YWQuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.W39a-Uy9Isacf1cePghCwVuwqU3Qe2R44yLdJ3ZqWXw'); background-size: cover; color: white; }
-        .feature { padding: 20px; }
     </style>
 </head>
 <body>
@@ -40,21 +40,41 @@ echo $result[0];
         </ul>
     </div>
 </nav>
+
 <div class="jumbotron text-center">
-    <h1>Here are some in-game info, select which one you want to learn more</h1>
+    <h1>Welcome to the League of Legends Game Platform</h1>
     <p>Your one-stop destination for all things League!</p>
 </div>
-<div class="container">
-    <div class="row">
-        <div class="col-md-4 feature">
-            <h3>Game Mode</h3>
-            <a href="mode.php"><img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt36cca6fc3e3891b7/615b894dc22cd45706cf2ea5/01_Banner_Game_Modes.jpg" style="width:300px;height:200px;"></a>
-        </div>
-        <div class="col-md-4 feature">
-            <h3>Non Player Characters</h3>
-            <a href="npc.php"><img src="https://images2.minutemediacdn.com/image/fetch/w_2000,h_2000,c_fit/https%3A%2F%2Fblogoflegends.com%2Ffiles%2F2017%2F09%2Fjluf593.jpg" style="width:300px;height:200px;"></a>
-        </div>
-    </div>
+<div class="container mt-5">
+    <h1 class="text-center">Store</h1>
+    <table class="table table-hover table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Original Price</th>
+            <th>Price After discount</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($result as $champion):
+            $query = $db->prepare("SELECT image_url FROM EntityImages WHERE entity_name =? AND entity_type='Champion'");
+            $query->execute([$champion['name']]);
+            $result = $query->fetch();
+            ?>
+            <tr>
+                <td><?= htmlspecialchars($champion['name']) ?></td>
+                <td><img src="<?= htmlspecialchars($result['image_url']) ?>" alt="Image of <?= htmlspecialchars($champion['name']) ?>" width="300" height="200"></td>
+                <td><?= htmlspecialchars($champion['cost']) ?></td>
+                <td><?= htmlspecialchars($champion['cost'] * (100 - $champion['promotion']) / 100) ?></td>
+                <td>
+                    <a class="champion-link" href="champion.php?name=<?= urlencode($champion['name']) ?>"> Purchase </a><br>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

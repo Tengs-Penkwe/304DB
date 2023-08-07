@@ -140,16 +140,17 @@ VALUES ('Uzi', 'Yasuo', 'Kills', 12),
 
 -- Populating the StoreVisit table
 INSERT INTO StoreVisit(storeID, promotion, id)
-VALUES ('store 1', '20% off', 'Uzi'),
-       ('store 2', '30% off', 'Rookie'),
-       ('store 3', '45% off', 'Theshy'),
-       ('store 4', '10% off', 'Caps'),
-       ('store 5', '20% off', 'Lwx');
+VALUES ('store 1', '20', 'Uzi'),
+       ('store 2', '30', 'Rookie'),
+       ('store 3', '45', 'Theshy'),
+       ('store 4', '10', 'Caps'),
+       ('store 5', '20', 'Lwx');
 
 -- Populating the Sell1 table
 INSERT INTO Sell1(name, storeID)
 VALUES ('Yasuo', 'store 1'),
        ('Riven', 'store 2'),
+       ('Yasuo', 'store 2'),
        ('Thresh', 'store 3'),
        ('Amumu', 'store 4'),
        ('Lee Sin', 'store 5');

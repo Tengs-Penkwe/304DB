@@ -6,7 +6,6 @@ $db = new PDO('sqlite:../database/LOL.db');
 $query = $db->query("SELECT * FROM Summoner");
 $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
 
-echo $_GET['id'];
 // HTML for displaying the Summoner table
 ?>
 
