@@ -24,7 +24,13 @@ VALUES
 ('Skin', 'PULSEFIRE Thresh', 'https://1.bp.blogspot.com/-7e-MzU3m5Z0/XcHa8qnNs5I/AAAAAAABa2s/kd75QyP_n40aruM1isGu6LO8xJcRcC63gCLcBGAsYHQ/s1600/412013.jpg'),
 ('Skin', 'NIGHTBRINGER Lee Sin', 'https://images2.minutemediacdn.com/image/upload/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/shape/cover/sport/lee-sin-1562e31c3db4b09ed136dfcb0565dda2.jpg'),
 ('Skin', 'HEXTECH Amumu', 'https://cdn.vox-cdn.com/thumbor/MlXu3FThPIeGl2naUJ00ky3evfA=/0x0:1215x717/1200x0/filters:focal(0x0:1215x717):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19204718/Amumu_Splash_10.jpg'),
-('Skin', 'BLOOD MOON Yasuo', 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3100663f-9b99-4d77-88e2-58316a938fc8/d9rchq2-a72c57c8-e98a-4834-9342-f0cc56a10c1b.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzMxMDA2NjNmLTliOTktNGQ3Ny04OGUyLTU4MzE2YTkzOGZjOFwvZDlyY2hxMi1hNzJjNTdjOC1lOThhLTQ4MzQtOTM0Mi1mMGNjNTZhMTBjMWIucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.nxMwNB_1l_fkazij2xN0z3k6GgHQFmp0f_Y8uI7a6Pk');
+('Skin', 'BLOOD MOON Yasuo', 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3100663f-9b99-4d77-88e2-58316a938fc8/d9rchq2-a72c57c8-e98a-4834-9342-f0cc56a10c1b.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzMxMDA2NjNmLTliOTktNGQ3Ny04OGUyLTU4MzE2YTkzOGZjOFwvZDlyY2hxMi1hNzJjNTdjOC1lOThhLTQ4MzQtOTM0Mi1mMGNjNTZhMTBjMWIucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.nxMwNB_1l_fkazij2xN0z3k6GgHQFmp0f_Y8uI7a6Pk'),
+('Mode', 'Ultra Rapid Fire', 'https://nexus.leagueoflegends.com/wp-content/uploads/2017/12/LOL_CMS_163_Article_01_w735liok4vjinj7gjsog.jpg'),
+('Mode', 'One for All', 'https://gumlet.assettype.com/afkgaming%2F2022-04%2F06f82fc7-f6a6-4602-bc9d-559f5910c182%2FUntitled_design___2022_04_01T131343_878__1_.jpg?compress=true&dpr=1&w=480'),
+('Mode', 'Ultimate Spellbook', 'https://notagamer.net/wp-content/uploads/2021/10/Ultimate_Spellbook-1024x576-1.jpg'),
+('Mode', 'Soul Fighter', 'https://staticg.sportskeeda.com/editor/2023/06/d617d-16878074279718-1920.jpg'),
+('Mode', 'Nexus Blitz', 'https://cdnportal.mobalytics.gg/production/2021/06/c0f4c183-nexus_blitz_jungle_1.jpg');
+
 
 
 INSERT INTO Summoner(id, level, rank, money)
