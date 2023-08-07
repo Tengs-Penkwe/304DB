@@ -113,7 +113,7 @@ VALUES
 INSERT INTO ChampionBCNF(name, cost, region, epithet)
 VALUES ('Yasuo', 4800, 'Ionia', 'The Unforgiven'),
        ('Riven', 2500, 'Noxus', 'The Exile'),
-       ('Thresh', 4800, 'Shadow Isles', 'The Chain Warden'),
+       ('Thresh', 10000, 'Shadow Isles', 'The Chain Warden'),
        ('Amumu', 450, 'Shurima', 'The Sad Mummy'),
        ('Lee Sin', 4800, 'Ionia', 'The Blind Monk');
 
@@ -149,8 +149,8 @@ VALUES ('store 1', '20', 'Uzi'),
 -- Populating the Sell1 table
 INSERT INTO Sell1(name, storeID)
 VALUES ('Yasuo', 'store 1'),
-       ('Riven', 'store 2'),
-       ('Yasuo', 'store 2'),
+       ('Lee Sin', 'store 2'),
+       ('Thresh', 'store 2'),
        ('Thresh', 'store 3'),
        ('Amumu', 'store 4'),
        ('Lee Sin', 'store 5');

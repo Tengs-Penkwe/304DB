@@ -2,13 +2,25 @@
 // Connect to the SQLite database
 require '../config/database.php';
 $db = getDBConnection();
-$id =  $_GET['id'];
+$champion_name = $_GET['name'];
+$id = $_GET['id'];
+$store = $_GET['store'];
 // Query the Summoner table
-$query = $db->prepare("SELECT * FROM StoreVisit SV, Sell1 S, ChampionBCNF C WHERE id =? AND SV.storeID = S.storeID 
-                                                          AND C.name = S.name");
-$query->execute([$id]);
-$result = $query->fetchAll(PDO::FETCH_ASSOC);
-$store = $result[0]["storeID"];
+$image = $db->prepare("SELECT image_url FROM EntityImages where entity_type = 'Champion' and entity_name = ?");
+$image->execute([$champion_name]);
+$result = $image->fetchAll(PDO::FETCH_ASSOC);
+
+$money = $db->prepare("SELECT money FROM Summoner where id = ?");
+$money->execute([$id]);
+$money = $money->fetchAll(PDO::FETCH_ASSOC);
+
+$cost = $_GET['cost'];
+
+
+$query = $db->prepare("DELETE FROM Sell1 WHERE storeID = ? and name = ?");
+$query->execute([$store, $champion_name]);
+$add = $db->prepare("insert into play values (?, ?)");
+$add->execute([$id, $champion_name]);
 
 
 ?>
@@ -46,41 +58,34 @@ $store = $result[0]["storeID"];
     <h1>Welcome to the League of Legends Game Platform</h1>
     <p>Your one-stop destination for all things League!</p>
 </div>
-<div class="container mt-5">
-    <h1 class="text-center">Store</h1>
-    <?php $money = $db->prepare("select money from summoner where id=?");
-    $money->execute([$id]);
-    $money = $money->fetchAll(PDO::FETCH_ASSOC);?>
-    <h3> You currently have <?= $money[0]['money']?> with you</h3>
-    <table class="table table-hover table-bordered">
-        <thead class="thead-dark">
-        <tr>
-            <th>Name</th>
-            <th>Image</th>
-            <th>Original Price</th>
-            <th>Price After discount</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($result as $champion):
-            $query = $db->prepare("SELECT image_url FROM EntityImages WHERE entity_name =? AND entity_type='Champion'");
-            $query->execute([$champion['name']]);
-            $result = $query->fetch();
+
+<div>
+    <?php
+        if ($cost > $money[0]['money']): ?>
+    <h2>
+        Oops! Seems like you did not bring enough money today, please try again later!
+    </h2>
+    <a class="champion-link" href="store.php?id=<?= $id?>"> Go back to store </a><br>
+    <?php else: ?>
+    <h2>
+        Thank you for purchasing champions, now you have <?php echo $champion_name?> in your collection!
+    </h2>
+    <a><img src="<?= htmlspecialchars($result[0]['image_url']) ?>" alt="" style="width:300px;height:200px;" ></a>
+        <?php
+            $update = $db->prepare("UPDATE Summoner set money = ? where id=?");
+            $update->execute([$money[0]['money']-$cost, $id]);
+
+            $new_money = $db->prepare("select money from summoner where id=?");
+            $new_money->execute([$id]);
+            $new_money = $new_money->fetchAll(PDO::FETCH_ASSOC);
             ?>
-            <tr>
-                <td><?= htmlspecialchars($champion['name']) ?></td>
-                <td><img src="<?= htmlspecialchars($result['image_url']) ?>" alt="Image of <?= htmlspecialchars($champion['name']) ?>" width="300" height="200"></td>
-                <td><?= htmlspecialchars($champion['cost']) ?></td>
-                <td><?= htmlspecialchars($champion['cost'] * (100 - $champion['promotion']) / 100) ?></td>
-                <td>
-                    <a class="champion-link" href="purchase.php?name=<?= urlencode($champion['name']) ?>&id=<?= $id?>&store=<?= $store?>&cost=<?=$champion['cost'] * (100 - $champion['promotion']) / 100 ?>"> Purchase </a><br>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-        </tbody>
-    </table>
+            <h2>
+                Now you have <?php echo $new_money[0]['money'] ?> left, we have updated your profile!
+            </h2>
+            <a class="champion-link" href="store.php?id=<?= $id?>"> Go back to store </a><br>
+    <?php endif; ?>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
