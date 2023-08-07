@@ -2,12 +2,13 @@
 // Connect to the SQLite database
 require '../config/database.php';
 $db = getDBConnection();
-$champion_name = $_GET['name'];
+$name = $_GET['name'];
 $id = $_GET['id'];
 $store = $_GET['store'];
+$type = $_GET['type'];
 // Query the Summoner table
-$image = $db->prepare("SELECT image_url FROM EntityImages where entity_type = 'Champion' and entity_name = ?");
-$image->execute([$champion_name]);
+$image = $db->prepare("SELECT image_url FROM EntityImages where entity_type = ? and entity_name = ?");
+$image->execute([$type, $name]);
 $result = $image->fetchAll(PDO::FETCH_ASSOC);
 
 $money = $db->prepare("SELECT money FROM Summoner where id = ?");
@@ -16,11 +17,17 @@ $money = $money->fetchAll(PDO::FETCH_ASSOC);
 
 $cost = $_GET['cost'];
 
+if ($type == 'Champion') {
+    $query = $db->prepare("DELETE FROM Sell1 WHERE storeID = ? and name = ?");
+    $query->execute([$store, $name]);
 
-$query = $db->prepare("DELETE FROM Sell1 WHERE storeID = ? and name = ?");
-$query->execute([$store, $champion_name]);
-$add = $db->prepare("insert into play values (?, ?)");
-$add->execute([$id, $champion_name]);
+    $add = $db->prepare("insert into play values (?, ?)");
+    $add->execute([$id, $name]);
+} else {
+    $query = $db->prepare("DELETE FROM Sell2 WHERE storeID = ? and name = ?");
+    $query->execute([$store, $name]);
+}
+
 
 
 ?>
@@ -46,10 +53,10 @@ $add->execute([$id, $champion_name]);
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link" href="profile.php">Profile</a></li>
+            <li class="nav-item"><a class="nav-link" href="profile.php?id=<?php echo $id?>">Profile</a></li>
             <li class="nav-item"><a class="nav-link" href="ingame.php">In Game Info</a></li>
             <li class="nav-item"><a class="nav-link" href="champions.php">Champions</a></li>
-            <li class="nav-item"><a class="nav-link" href="store.php">Store</a></li>
+            <li class="nav-item"><a class="nav-link" href="store.php?id=<?php echo $id?>">Store</a></li>
         </ul>
     </div>
 </nav>
@@ -68,7 +75,7 @@ $add->execute([$id, $champion_name]);
     <a class="champion-link" href="store.php?id=<?= $id?>"> Go back to store </a><br>
     <?php else: ?>
     <h2>
-        Thank you for purchasing champions, now you have <?php echo $champion_name?> in your collection!
+        Thank you for purchasing, now you have <?php echo $name?> in your collection!
     </h2>
     <a><img src="<?= htmlspecialchars($result[0]['image_url']) ?>" alt="" style="width:300px;height:200px;" ></a>
         <?php

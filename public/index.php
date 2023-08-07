@@ -32,7 +32,7 @@ $id = $_POST['ID'];
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="profile.php">Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="profile.php?id=<?php echo $id?>">Profile</a></li>
                 <li class="nav-item"><a class="nav-link" href="ingame.php">In Game Info</a></li>
                 <li class="nav-item"><a class="nav-link" href="champions.php>">Champions</a></li>
                 <li class="nav-item"><a class="nav-link" href="store.php?id=<?php echo $id?>">Store</a></li>

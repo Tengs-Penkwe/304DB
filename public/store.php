@@ -10,6 +10,10 @@ $query->execute([$id]);
 $result = $query->fetchAll(PDO::FETCH_ASSOC);
 $store = $result[0]["storeID"];
 
+$skins = $db->prepare("SELECT * FROM StoreVisit SV, Sell2 S, SkinDecorateBCNF SD WHERE id =? AND SV.storeID = S.storeID 
+                                                          AND SD.skin_name = S.name");
+$skins->execute([$id]);
+$skins = $skins->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -34,10 +38,10 @@ $store = $result[0]["storeID"];
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link" href="profile.php">Profile</a></li>
+            <li class="nav-item"><a class="nav-link" href="profile.php?id=<?php echo $id?>">Profile</a></li>
             <li class="nav-item"><a class="nav-link" href="ingame.php">In Game Info</a></li>
             <li class="nav-item"><a class="nav-link" href="champions.php">Champions</a></li>
-            <li class="nav-item"><a class="nav-link" href="store.php">Store</a></li>
+            <li class="nav-item"><a class="nav-link" href="store.php?id=<?php echo $id?>">Store</a></li>
         </ul>
     </div>
 </nav>
@@ -47,7 +51,7 @@ $store = $result[0]["storeID"];
     <p>Your one-stop destination for all things League!</p>
 </div>
 <div class="container mt-5">
-    <h1 class="text-center">Store</h1>
+    <h1 class="text-center">Champion Store</h1>
     <?php $money = $db->prepare("select money from summoner where id=?");
     $money->execute([$id]);
     $money = $money->fetchAll(PDO::FETCH_ASSOC);?>
@@ -74,7 +78,41 @@ $store = $result[0]["storeID"];
                 <td><?= htmlspecialchars($champion['cost']) ?></td>
                 <td><?= htmlspecialchars($champion['cost'] * (100 - $champion['promotion']) / 100) ?></td>
                 <td>
-                    <a class="champion-link" href="purchase.php?name=<?= urlencode($champion['name']) ?>&id=<?= $id?>&store=<?= $store?>&cost=<?=$champion['cost'] * (100 - $champion['promotion']) / 100 ?>"> Purchase </a><br>
+                    <a class="champion-link" href="purchase.php?name=<?= urlencode($champion['name']) ?>&id=<?= $id?>&store=<?= $store?>&cost=<?=$champion['cost'] * (100 - $champion['promotion']) / 100 ?>&type=Champion"> Purchase </a><br>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <h1 class="text-center">Skin Store</h1>
+    <table class="table table-hover table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Original Price</th>
+            <th>Price After discount</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($skins as $skin):
+            $skin_image = $db->prepare("SELECT image_url FROM EntityImages WHERE entity_name =? AND entity_type='Skin'");
+            $skin_image->execute([$skin['skin_name']]);
+            $skin_image = $skin_image->fetch();
+            ?>
+            <tr>
+                <td><?= htmlspecialchars($skin['skin_name']) ?></td>
+                <td><img src="<?= htmlspecialchars($skin_image['image_url']) ?>" alt="Image of <?= htmlspecialchars($skin['skin_name']) ?>" width="300" height="200"></td>
+                <?php $skin_cost = $db->prepare("SELECT cost FROM TypeCost WHERE type =?");
+                $skin_cost->execute([$skin['type']]);
+                $skin_cost = $skin_cost->fetch();
+                ?>
+                <td><?= htmlspecialchars($skin_cost['cost']) ?></td>
+                <td><?= htmlspecialchars($skin_cost['cost'] * (100 - $skin['promotion']) / 100) ?></td>
+                <td>
+                    <a class="champion-link" href="purchase.php?name=<?= urlencode($skin['skin_name']) ?>&id=<?= $id?>&store=<?= $store?>&cost=<?=$skin_cost['cost'] * (100 - $skin['promotion']) / 100 ?>&type=Skin"> Purchase </a><br>
                 </td>
             </tr>
         <?php endforeach; ?>

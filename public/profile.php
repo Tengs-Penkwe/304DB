@@ -2,17 +2,20 @@
 // Connect to the SQLite database
 require_once('../config/database.php');
 $db = getDBConnection();
-
+$id =  $_GET['id'];
 // Query the Summoner table
 // Query the Summoner table, including the images
-$query = $db->query("
-    SELECT Summoner.id, level, rank, money, GROUP_CONCAT(ChampionBCNF.name) AS champions, EntityImages.image_url 
+$query = $db->prepare("
+    SELECT Summoner.id, level, rank, money, GROUP_CONCAT(distinct skin_name) AS skins, GROUP_CONCAT(distinct ChampionBCNF.name) AS champions, EntityImages.image_url
     FROM Summoner 
     LEFT JOIN Play ON Summoner.id = Play.id 
     LEFT JOIN ChampionBCNF ON Play.name = ChampionBCNF.name 
-    LEFT JOIN EntityImages ON Summoner.id = EntityImages.entity_name AND EntityImages.entity_type = 'Summoner' 
+    LEFT JOIN EntityImages ON Summoner.id = EntityImages.entity_name AND EntityImages.entity_type = 'Summoner'
+    LEFT JOIN Owns on Summoner.id = Owns.id
+    where Summoner.id = ?
     GROUP BY Summoner.id
 ");
+$query->execute([$id]);
 $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
@@ -59,11 +62,13 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
                     <th>Rank</th>
                     <th>Money</th>
                     <th>Champions</th>
+                    <th>Skins</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($summoners as $summoner): 
                     $champions = explode(',', $summoner['champions']);
+                    $skins = explode(',', $summoner['skins']);
                 ?>
                     <tr>
                         <td><img src="<?= htmlspecialchars($summoner['image_url']) ?>" alt="Image of <?= htmlspecialchars($summoner['id']) ?>" width="50"></td>
@@ -74,6 +79,11 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
                         <td>
                             <?php foreach ($champions as $champion): ?>
                                 <a class="champion-link" href="champion.php?name=<?= urlencode($champion) ?>"><?= htmlspecialchars($champion) ?></a><br>
+                            <?php endforeach; ?>
+                        </td>
+                        <td>
+                            <?php foreach ($skins as $skin): ?>
+                                <a class="champion-link" href="skin.php?name=<?= urlencode($skin) ?>"><?= htmlspecialchars($skin) ?></a><br>
                             <?php endforeach; ?>
                         </td>
                     </tr>

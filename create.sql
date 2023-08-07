@@ -174,6 +174,15 @@ CREATE TABLE SkinDecorateBCNF
         ON UPDATE CASCADE
 );
 
+CREATE TABLE Owns
+(
+    id CHAR(20),
+    skin_name CHAR(20),
+    FOREIGN KEY (id) REFERENCES Summoner,
+    FOREIGN KEY (skin_name) REFERENCES SkinDecorateBCNF,
+    PRIMARY KEY (id, skin_name)
+);
+
 CREATE TABLE AbilityOwned
 (
     ability_name  CHAR(20) PRIMARY KEY,

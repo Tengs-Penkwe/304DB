@@ -19,7 +19,13 @@ VALUES
 ('Ability', 'BROKEN WINGS', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/spell/RivenTriCleave.png'),
 ('Ability', 'KI BURST', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/spell/RivenMartyr.png'),
 ('Ability', 'VALOR', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/spell/RivenFeint.png'),
-('Ability', 'BLADE OF THE EXILE', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/spell/RivenFengShuiEngine.png');
+('Ability', 'BLADE OF THE EXILE', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/spell/RivenFengShuiEngine.png'),
+('Skin', 'PROJECT Yasuo', 'https://3.bp.blogspot.com/-fofl7wOQldg/U_nfstqh2GI/AAAAAAAAV68/HbDXpFdah98/s1600/Yasuo_Splash_2.jpg'),
+('Skin', 'PULSEFIRE Thresh', 'https://1.bp.blogspot.com/-7e-MzU3m5Z0/XcHa8qnNs5I/AAAAAAABa2s/kd75QyP_n40aruM1isGu6LO8xJcRcC63gCLcBGAsYHQ/s1600/412013.jpg'),
+('Skin', 'NIGHTBRINGER Lee Sin', 'https://images2.minutemediacdn.com/image/upload/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/shape/cover/sport/lee-sin-1562e31c3db4b09ed136dfcb0565dda2.jpg'),
+('Skin', 'HEXTECH Amumu', 'https://cdn.vox-cdn.com/thumbor/MlXu3FThPIeGl2naUJ00ky3evfA=/0x0:1215x717/1200x0/filters:focal(0x0:1215x717):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19204718/Amumu_Splash_10.jpg'),
+('Skin', 'BLOOD MOON Yasuo', 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3100663f-9b99-4d77-88e2-58316a938fc8/d9rchq2-a72c57c8-e98a-4834-9342-f0cc56a10c1b.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzMxMDA2NjNmLTliOTktNGQ3Ny04OGUyLTU4MzE2YTkzOGZjOFwvZDlyY2hxMi1hNzJjNTdjOC1lOThhLTQ4MzQtOTM0Mi1mMGNjNTZhMTBjMWIucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.nxMwNB_1l_fkazij2xN0z3k6GgHQFmp0f_Y8uI7a6Pk');
+
 
 INSERT INTO Summoner(id, level, rank, money)
 VALUES ('Rookie', 10, 'Gold', 5000),
@@ -153,11 +159,11 @@ VALUES ('Yasuo', 'store 1'),
        ('Lee Sin', 'store 5');
 
 INSERT INTO Sell2(name, storeID)
-VALUES ('PROJECT', 'store 1'),
-       ('NIGHTBRINGER', 'store 2'),
-       ('HEXTECH', 'store 3'),
-       ('PULSEFIRE', 'store 4'),
-       ('BLOOD MOON', 'store 5');
+VALUES ('PROJECT Yasuo', 'store 1'),
+       ('NIGHTBRINGER Lee Sin', 'store 2'),
+       ('HEXTECH Amumu', 'store 3'),
+       ('PULSEFIRE Thresh', 'store 4'),
+       ('BLOOD MOON Yasuo', 'store 5');
 
 INSERT INTO TypeCost(type, cost)
 VALUES ('Ultimate', 3250),
@@ -166,12 +172,19 @@ VALUES ('Ultimate', 3250),
        ('Standard', 975),
        ('Epic', 1350);
 
+INSERT INTO Owns(id, skin_name)
+VALUES ('Rookie', 'PROJECT Yasuo'),
+       ('Uzi', 'PROJECT Yasuo'),
+       ('Caps', 'NIGHTBRINGER Lee Sin'),
+       ('Lwx', 'HEXTECH Amumu'),
+       ('Rookie', 'BLOOD MOON Yasuo');
+
 INSERT INTO SkinDecorateBCNF(skin_name, type, champion_name)
-VALUES ('PROJECT', 'Epic', 'Yasuo'),
-       ('NIGHTBRINGER', 'Epic', 'Lee Sin'),
-       ('HEXTECH', 'Mythic', 'Amumu'),
-       ('PULSEFIRE', 'Legendary', 'Thresh'),
-       ('BLOOD MOON', 'Epic', 'Yasuo');
+VALUES ('PROJECT Yasuo', 'Epic', 'Yasuo'),
+       ('NIGHTBRINGER Lee Sin', 'Epic', 'Lee Sin'),
+       ('HEXTECH Amumu', 'Mythic', 'Amumu'),
+       ('PULSEFIRE Thresh', 'Legendary', 'Thresh'),
+       ('BLOOD MOON Yasuo', 'Epic', 'Yasuo');
 
 INSERT INTO AbilityOwned(ability_name, cooldown, key, description, champion_name)
 VALUES ('WAY OF THE WANDERER', 60, 'P', 'Yasuo’s resolve hardens as he moves, represented by his passive Resolve Bar. Resolve is divided into two parts, Resolve Flow and Resolve Steel, enhancing Yasuo’s abilities in different ways.', 'Yasuo'),
