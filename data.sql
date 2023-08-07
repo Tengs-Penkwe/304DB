@@ -9,9 +9,18 @@ VALUES
 ('Champion', 'Riven', 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Riven_0.jpg'),
 ('Champion', 'Thresh', 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Thresh_0.jpg'),
 ('Champion', 'Amumu', 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Amumu_0.jpg'),
-('Champion', 'Lee Sin', 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/LeeSin_0.jpg');
+('Champion', 'Lee Sin', 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/LeeSin_0.jpg'),
+('Ability', 'WAY OF THE WANDERER', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/passive/Yasuo_Passive.png'),
+('Ability', 'STEEL TEMPEST', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/spell/YasuoQ1Wrapper.png'),
+('Ability', 'WIND WALL', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/spell/YasuoW.png'),
+('Ability', 'SWEEPING BLADE', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/spell/YasuoE.png'),
+('Ability', 'LAST BREATH', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/spell/YasuoR.png'),
+('Ability', 'RUNIC BLADE', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/passive/RivenPassive.png'),
+('Ability', 'BROKEN WINGS', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/spell/RivenTriCleave.png'),
+('Ability', 'KI BURST', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/spell/RivenMartyr.png'),
+('Ability', 'VALOR', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/spell/RivenFeint.png'),
+('Ability', 'BLADE OF THE EXILE', 'https://ddragon.leagueoflegends.com/cdn/11.14.1/img/spell/RivenFengShuiEngine.png');
 
--- Populating the Summoner table
 INSERT INTO Summoner(id, level, rank, money)
 VALUES ('Rookie', 10, 'Gold', 5000),
        ('Uzi', 20, 'Platinum', 7500),
@@ -19,7 +28,6 @@ VALUES ('Rookie', 10, 'Gold', 5000),
        ('Caps', 40, 'Master', 12500),
        ('Lwx', 50, 'Grandmaster', 15000);
 
--- Populating the GameMode table
 INSERT INTO GameMode(name, description)
 VALUES ('Ultra Rapid Fire', 'no cooldown'),
        ('One for All', 'same 5 champion'),
@@ -27,7 +35,6 @@ VALUES ('Ultra Rapid Fire', 'no cooldown'),
        ('Soul Fighter', '2v2v2v2'),
        ('Nexus Blitz', 'more frequent fight');
 
--- Populating the NonPlayerCharacter table
 INSERT INTO NonPlayerCharacter(name, health)
 VALUES ('monsterA', 1200),
        ('monsterB', 3000),
@@ -45,7 +52,6 @@ VALUES ('monsterA', 1200),
        ('turret4', 5000),
        ('turret5', 5000);
 
--- Populating the Monster table
 INSERT INTO Monster(name, buff, type)
 VALUES ('monsterA', 'Damage Boost', 'Dragon'),
        ('monsterB', 'Health Boost', 'Baron'),
@@ -53,7 +59,6 @@ VALUES ('monsterA', 'Damage Boost', 'Dragon'),
        ('monsterD', 'Critical Boost', 'Kraken'),
        ('monsterE', 'Armor Boost', 'Elder Dragon');
 
--- Populating the Minion table
 INSERT INTO Minion(name, side, type)
 VALUES ('minion1', 'Blue', 'Melee'),
        ('minion2', 'Blue', 'Caster'),
@@ -61,7 +66,6 @@ VALUES ('minion1', 'Blue', 'Melee'),
        ('minion4', 'Red', 'Caster'),
        ('minion5', 'Blue', 'Siege');
 
--- Populating the Turret table
 INSERT INTO Turret(name, position)
 VALUES ('turret1', 'Top Lane outer'),
        ('turret2', 'Mid Lane inner'),
@@ -69,7 +73,6 @@ VALUES ('turret1', 'Top Lane outer'),
        ('turret4', 'Top Lane inhibitor'),
        ('turret5', 'Mid Lane inhibitor');
 
--- Populating the SelectFavorite table
 INSERT INTO SelectFavorite(id, name)
 VALUES ('Rookie', 'Ultra Rapid Fire'),
        ('Rookie', 'One for All'),
@@ -77,7 +80,6 @@ VALUES ('Rookie', 'Ultra Rapid Fire'),
        ('Lwx', 'Soul Fighter'),
        ('Caps', 'Nexus Blitz');
 
--- Populating the LearnAbout table
 INSERT INTO LearnAbout(id, name)
 VALUES ('Rookie', 'monsterA'),
        ('Uzi', 'monsterB'),
@@ -109,7 +111,6 @@ VALUES
 ('The Blind Monk', 
  'In the heart of an ancient monastery, lived a monk whose sight was taken not by age or ailment, but by choice. For in blindness, he saw the world more clearly than those with sight. With every resonating echo and whispering wind, he perceived truths that remained hidden from the world. Many see only a blind man, but in battle, with swift kicks and resonating strikes, he opens their eyes to the profound depths of his abilities.');
 
--- Populating the ChampionBCNF table
 INSERT INTO ChampionBCNF(name, cost, region, epithet)
 VALUES ('Yasuo', 4800, 'Ionia', 'The Unforgiven'),
        ('Riven', 2500, 'Noxus', 'The Exile'),
@@ -117,7 +118,6 @@ VALUES ('Yasuo', 4800, 'Ionia', 'The Unforgiven'),
        ('Amumu', 450, 'Shurima', 'The Sad Mummy'),
        ('Lee Sin', 4800, 'Ionia', 'The Blind Monk');
 
--- Populating the Play table
 INSERT INTO Play(id, name)
 VALUES ('Rookie', 'Yasuo'),
        ('Rookie', 'Riven'),
@@ -125,7 +125,6 @@ VALUES ('Rookie', 'Yasuo'),
        ('Lwx', 'Amumu'),
        ('Caps', 'Lee Sin');
 
--- Populating the StatisticProduced table
 INSERT INTO StatisticProduced(id, name, type, value)
 VALUES ('Uzi', 'Yasuo', 'Kills', 12),
        ('Uzi', 'Yasuo', 'Assists', 7),
@@ -138,7 +137,6 @@ VALUES ('Uzi', 'Yasuo', 'Kills', 12),
        ('Rookie', 'Riven', 'Roaming score', 3),
        ('Rookie', 'Riven', 'Gold earned', 9000);
 
--- Populating the StoreVisit table
 INSERT INTO StoreVisit(storeID, promotion, id)
 VALUES ('store 1', '20', 'Uzi'),
        ('store 2', '30', 'Rookie'),
@@ -146,7 +144,6 @@ VALUES ('store 1', '20', 'Uzi'),
        ('store 4', '10', 'Caps'),
        ('store 5', '20', 'Lwx');
 
--- Populating the Sell1 table
 INSERT INTO Sell1(name, storeID)
 VALUES ('Yasuo', 'store 1'),
        ('Lee Sin', 'store 2'),
@@ -155,7 +152,6 @@ VALUES ('Yasuo', 'store 1'),
        ('Amumu', 'store 4'),
        ('Lee Sin', 'store 5');
 
--- Populating the Sell2 table
 INSERT INTO Sell2(name, storeID)
 VALUES ('PROJECT', 'store 1'),
        ('NIGHTBRINGER', 'store 2'),
@@ -163,7 +159,6 @@ VALUES ('PROJECT', 'store 1'),
        ('PULSEFIRE', 'store 4'),
        ('BLOOD MOON', 'store 5');
 
--- Populating the TypeCost table
 INSERT INTO TypeCost(type, cost)
 VALUES ('Ultimate', 3250),
        ('Legendary', 1820),
@@ -171,7 +166,6 @@ VALUES ('Ultimate', 3250),
        ('Standard', 975),
        ('Epic', 1350);
 
--- Populating the SkinDecorateBCNF table
 INSERT INTO SkinDecorateBCNF(skin_name, type, champion_name)
 VALUES ('PROJECT', 'Epic', 'Yasuo'),
        ('NIGHTBRINGER', 'Epic', 'Lee Sin'),
@@ -179,15 +173,14 @@ VALUES ('PROJECT', 'Epic', 'Yasuo'),
        ('PULSEFIRE', 'Legendary', 'Thresh'),
        ('BLOOD MOON', 'Epic', 'Yasuo');
 
--- Populating the AbilityOwned table
 INSERT INTO AbilityOwned(ability_name, cooldown, key, description, champion_name)
-VALUES ('WAY OF THE WANDERER', 60, 'P', 'Passive ability', 'Yasuo'),
-       ('STEEL TEMPEST', 8, 'Q', 'Thrusts forward', 'Yasuo'),
-       ('WIND WALL', 40, 'W', 'blocks all enemy projectiles', 'Yasuo'),
-       ('SWEEPING BLADE', 5, 'E', 'Dashes through target enemy', 'Yasuo'),
-       ('LAST BREATH', 120, 'R', 'Blinks to an enemy champion, dealing physical damage', 'Yasuo'),
-       ('RUNIC BLADE', 60, 'P', 'Passive ability', 'Riven'),
-       ('BROKEN WINGS', 8, 'Q', 'Riven lashes out in a series of strikes', 'Riven'),
-       ('KI BURST', 40, 'W', 'Riven emits a Ki Burst, damaging nearby enemies', 'Riven'),
-       ('VALOR', 5, 'E', 'Riven steps forward a short distance', 'Riven'),
-       ('BLADE OF THE EXILE', 120, 'R', 'Riven empowers her keepsake weapon with energy', 'Riven');
+VALUES ('WAY OF THE WANDERER', 60, 'P', 'Yasuo’s resolve hardens as he moves, represented by his passive Resolve Bar. Resolve is divided into two parts, Resolve Flow and Resolve Steel, enhancing Yasuo’s abilities in different ways.', 'Yasuo'),
+       ('STEEL TEMPEST', 8, 'Q', 'Yasuo thrusts forward with his sword, damaging all enemies in a line. Successfully landing Steel Tempest grants Yasuo Gathering Storm stacks for a short period.', 'Yasuo'),
+       ('WIND WALL', 40, 'W', 'Yasuo creates a gust of wind that travels forward to form a wall, blocking all enemy projectiles except tower attacks.', 'Yasuo'),
+       ('SWEEPING BLADE', 5, 'E', 'Yasuo dashes through the target enemy, dealing magic damage and marking them briefly. Each cast increases his next dash’s base damage.', 'Yasuo'),
+       ('LAST BREATH', 120, 'R', 'Yasuo blinks to a nearby airborne enemy champion, immobilizing them and increasing his armor penetration significantly for a brief duration. He then deals physical damage to the target.', 'Yasuo'),
+       ('RUNIC BLADE', 60, 'P', 'Riven’s abilities charge her blade, and her basic attacks expend charges to deal an additional physical damage. Her blade may be charged up to three times.', 'Riven'),
+       ('BROKEN WINGS', 8, 'Q', 'Riven lashes out in a series of three strikes. The final strike can knock back surrounding enemies and all strikes deal physical damage.', 'Riven'),
+       ('KI BURST', 40, 'W', 'Riven emits a Ki Burst, damaging and stunning nearby enemies. The radius of effect increases with each ability rank.', 'Riven'),
+       ('VALOR', 5, 'E', 'Riven steps forward a short distance and gains a shield, absorbing incoming damage.', 'Riven'),
+       ('BLADE OF THE EXILE', 120, 'R', 'Riven empowers her keepsake weapon with energy, extending her attack range and granting her bonus attack damage. She can also activate this ability to perform Wind Slash, dealing physical damage to all enemies hit.', 'Riven');
