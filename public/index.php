@@ -84,6 +84,7 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
             </tbody>
         </table>
     </div>
+<img src="../../images/banner.jpg" alt="Italian Trulli">
 </body>
 </html>
 
