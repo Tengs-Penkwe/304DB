@@ -27,9 +27,8 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            font-size: 18px;
-        }
+        body { background-color: #f5f5f5; }
+        .navbar { background-color: #ffcc00; }
         h1 {
             font-size: 36px;
             color: #333;
@@ -51,6 +50,21 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
     <title>Summoners Profiles | League of Legends Game Platform</title>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="index.php?id=<?php echo $id?>">LOL Platform</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="profile.php?id=<?php echo $id?>">Profile</a></li>
+            <li class="nav-item"><a class="nav-link" href="ingame.php?id=<?php echo $id?>">In Game Info</a></li>
+            <li class="nav-item"><a class="nav-link" href="champions.php">Champions</a></li>
+            <li class="nav-item"><a class="nav-link" href="store.php?id=<?php echo $id?>">Store</a></li>
+            <li class="nav-item"><a class="nav-link" href="login.php">Log out</a></li>
+        </ul>
+    </div>
+</nav>
     <div class="container mt-5">
         <h1 class="text-center">Summoners Profiles</h1>
         <table class="table table-hover table-bordered">
@@ -92,8 +106,47 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
         </table>
     </div>
 
+
+
     <div class="container mt-5">
         <h1 class="text-center">Skin Collection</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 feature">
+                    <?php $count = $db->prepare("select count(*) as number from Owns O, SkinDecorateBCNF S
+                where O.skin_name = S.skin_name and type = 'Epic' and id = ? group by id;");
+                    $count->execute([$id]);
+                    $count = $count->fetchAll(PDO::FETCH_ASSOC);
+                    if (sizeof($count) > 0) :?>
+                    <h3>Epic Skin: <?= $count[0]['number'];?></h3>
+                    <?php else:?>
+                        <h3>Epic Skin: 0</h3>
+                    <?php endif;?>
+                </div>
+                <div class="col-md-4 feature">
+                    <?php $count = $db->prepare("select count(*) as number from Owns O, SkinDecorateBCNF S
+                where O.skin_name = S.skin_name and type = 'Legendary' and id = ? group by id;");
+                    $count->execute([$id]);
+                    $count = $count->fetchAll(PDO::FETCH_ASSOC);
+                    if (sizeof($count) > 0) :?>
+                        <h3>Legendary Skin: <?= $count[0]['number'];?></h3>
+                    <?php else:?>
+                        <h3>Legendary Skin: 0</h3>
+                    <?php endif;?>
+                </div>
+                <div class="col-md-4 feature">
+                    <?php $count = $db->prepare("select count(*) as number from Owns O, SkinDecorateBCNF S
+                where O.skin_name = S.skin_name and type = 'Mythic' and id = ? group by id;");
+                    $count->execute([$id]);
+                    $count = $count->fetchAll(PDO::FETCH_ASSOC);
+                    if (sizeof($count) > 0) :?>
+                        <h3>Mythic Skin: <?= $count[0]['number'];?></h3>
+                    <?php else:?>
+                        <h3>Mythic Skin: 0</h3>
+                    <?php endif;?>
+                </div>
+            </div>
+        </div>
         <table class="table table-hover table-bordered">
             <thead class="thead-dark">
             <tr>
