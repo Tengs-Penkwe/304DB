@@ -83,11 +83,46 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
                         </td>
                         <td>
                             <?php foreach ($skins as $skin): ?>
-                                <a class="champion-link" href="skin.php?name=<?= urlencode($skin) ?>"><?= htmlspecialchars($skin) ?></a><br>
+                                <p><?= $skin ?></p>
                             <?php endforeach; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container mt-5">
+        <h1 class="text-center">Skin Collection</h1>
+        <table class="table table-hover table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Type</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($summoners as $summoner):
+                $skins = explode(',', $summoner['skins']);
+                foreach ($skins as $skin):
+                    $skin_info = $db->prepare("select * from SkinDecorateBCNF S, TypeCost T where skin_name = ? and S.type = T.type");
+                    $skin_info->execute([$skin]);
+                    $skin_info = $skin_info->fetchAll(PDO::FETCH_ASSOC);
+
+                    $query = $db->prepare("SELECT image_url FROM EntityImages WHERE entity_name =? AND entity_type='Skin'");
+                    $query->execute([$skin]);
+                    $result = $query->fetch();
+                ?>
+                <tr>
+                    <td><?= htmlspecialchars($skin_info[0]['skin_name']) ?></td>
+                    <td><img src="<?= htmlspecialchars($result['image_url']) ?>" alt="Image of <?= htmlspecialchars($skin_info[0]['type']) ?>" width="400" height="200"></td>
+                    <td><?= htmlspecialchars($skin_info[0]['type']) ?></td>
+                    <td><?= htmlspecialchars($skin_info[0]['cost']) ?></td>
+                </tr>
+                <?php endforeach; ?>
+            <?php endforeach; ?>
             </tbody>
         </table>
     </div>
