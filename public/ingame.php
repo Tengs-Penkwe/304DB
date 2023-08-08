@@ -3,8 +3,6 @@
 $db = new PDO('sqlite:../database/LOL.db');
 $id = $_GET['id'];
 // Query the Summoner table
-$query = $db->query("SELECT * FROM Summoner");
-$summoners = $query->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -24,7 +22,7 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand" href="index.php">LOL Platform</a>
+    <a class="navbar-brand" href="index.php?id=<?php echo $id?>">LOL Platform</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -46,11 +44,11 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
     <div class="row">
         <div class="col-md-4 feature">
             <h3>Game Mode</h3>
-            <a href="mode.php"><img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt36cca6fc3e3891b7/615b894dc22cd45706cf2ea5/01_Banner_Game_Modes.jpg" style="width:300px;height:200px;"></a>
+            <a href="mode.php?id=<?php echo $id?>"><img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt36cca6fc3e3891b7/615b894dc22cd45706cf2ea5/01_Banner_Game_Modes.jpg" style="width:300px;height:200px;"></a>
         </div>
         <div class="col-md-4 feature">
             <h3>Non Player Characters</h3>
-            <a href="npc.php"><img src="https://images2.minutemediacdn.com/image/fetch/w_2000,h_2000,c_fit/https%3A%2F%2Fblogoflegends.com%2Ffiles%2F2017%2F09%2Fjluf593.jpg" style="width:300px;height:200px;"></a>
+            <a href="npc.php?id=<?php echo $id?>"><img src="https://images2.minutemediacdn.com/image/fetch/w_2000,h_2000,c_fit/https%3A%2F%2Fblogoflegends.com%2Ffiles%2F2017%2F09%2Fjluf593.jpg" style="width:300px;height:200px;"></a>
         </div>
     </div>
 </div>

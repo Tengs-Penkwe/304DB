@@ -16,17 +16,22 @@ $money->execute([$id]);
 $money = $money->fetchAll(PDO::FETCH_ASSOC);
 
 $cost = $_GET['cost'];
+if ($cost < $money[0]['money']) {
+    if ($type == 'Champion') {
+        $query = $db->prepare("DELETE FROM Sell1 WHERE storeID = ? and name = ?");
+        $query->execute([$store, $name]);
 
-if ($type == 'Champion') {
-    $query = $db->prepare("DELETE FROM Sell1 WHERE storeID = ? and name = ?");
-    $query->execute([$store, $name]);
+        $add = $db->prepare("insert into play values (?, ?)");
+        $add->execute([$id, $name]);
+    } else {
+        $but_skin = $db->prepare("DELETE FROM Sell2 WHERE storeID = ? and name = ?");
+        $but_skin->execute([$store, $name]);
 
-    $add = $db->prepare("insert into play values (?, ?)");
-    $add->execute([$id, $name]);
-} else {
-    $query = $db->prepare("DELETE FROM Sell2 WHERE storeID = ? and name = ?");
-    $query->execute([$store, $name]);
+        $add_skin = $db->prepare("insert into Owns values (?, ?)");
+        $add_skin->execute([$id, $name]);
+    }
 }
+
 
 
 
@@ -47,7 +52,7 @@ if ($type == 'Champion') {
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand" href="index.php">LOL Platform</a>
+    <a class="navbar-brand" href="index.php?id=<?php echo $id?>">LOL Platform</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>

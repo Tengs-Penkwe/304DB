@@ -36,8 +36,8 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
         <div class="col-md-4 feature">
             <h3>Please log in or create a new profile</h3>
             <p>Existing summoners are listed in the table below</p>
-            <form action="index.php" method="post">
-                <input type="text" name="ID" id="ID"><br>
+            <form action="index.php" method="get">
+                <input type="text" name="id" id="id"><br>
                 <input type="submit">
             </form>
         </div>

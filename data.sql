@@ -29,8 +29,16 @@ VALUES
 ('Mode', 'One for All', 'https://gumlet.assettype.com/afkgaming%2F2022-04%2F06f82fc7-f6a6-4602-bc9d-559f5910c182%2FUntitled_design___2022_04_01T131343_878__1_.jpg?compress=true&dpr=1&w=480'),
 ('Mode', 'Ultimate Spellbook', 'https://notagamer.net/wp-content/uploads/2021/10/Ultimate_Spellbook-1024x576-1.jpg'),
 ('Mode', 'Soul Fighter', 'https://staticg.sportskeeda.com/editor/2023/06/d617d-16878074279718-1920.jpg'),
-('Mode', 'Nexus Blitz', 'https://cdnportal.mobalytics.gg/production/2021/06/c0f4c183-nexus_blitz_jungle_1.jpg');
-
+('Mode', 'Nexus Blitz', 'https://cdnportal.mobalytics.gg/production/2021/06/c0f4c183-nexus_blitz_jungle_1.jpg'),
+('Minion', 'Caster', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/d/d9/Caster_MinionSquare.png'),
+('Minion', 'Siege', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/0b/Siege_MinionSquare.png'),
+('Minion', 'Melee', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/2/24/Melee_MinionSquare.png'),
+('Minion', 'Super', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/b/b7/Super_MinionSquare.png'),
+('Monster', 'Infernal Dragon', 'https://cdn.sanity.io/images/ccckgjf9/production/52e144408f40e8eb91af52c7f5849152817f27b8-1250x703.jpg'),
+('Monster', 'Baron', 'https://images5.alphacoders.com/127/1271593.jpg'),
+('Monster', 'Rift Herald', 'https://static.wikia.nocookie.net/leagueoflegends/images/c/c3/99NU001-full.png'),
+('Monster', 'Ocean Dragon', 'https://editors.dexerto.com/wp-content/uploads/2021/08/12/League-Dragon-Rework-Season-12.jpg'),
+('Monster', 'Elder Dragon', 'https://i.pinimg.com/originals/33/3b/05/333b05618ee1eeba444f508d3176d179.png');
 
 
 INSERT INTO Summoner(id, level, rank, money)
@@ -65,16 +73,16 @@ VALUES ('monsterA', 1200),
        ('turret5', 5000);
 
 INSERT INTO Monster(name, buff, type)
-VALUES ('monsterA', 'Damage Boost', 'Dragon'),
-       ('monsterB', 'Health Boost', 'Baron'),
-       ('monsterC', 'Speed Boost', 'Rift Herald'),
-       ('monsterD', 'Critical Boost', 'Kraken'),
-       ('monsterE', 'Armor Boost', 'Elder Dragon');
+VALUES ('monsterA', 'Damage Boost', 'Infernal Dragon'),
+       ('monsterB', 'Empower minions and fast recall', 'Baron'),
+       ('monsterC', 'Fast recall & spawn rift', 'Rift Herald'),
+       ('monsterD', 'Stronger Health Regen', 'Ocean Dragon'),
+       ('monsterE', 'Execution for low health enemies', 'Elder Dragon');
 
 INSERT INTO Minion(name, side, type)
 VALUES ('minion1', 'Blue', 'Melee'),
        ('minion2', 'Blue', 'Caster'),
-       ('minion3', 'Red', 'Melee'),
+       ('minion3', 'Red', 'Super'),
        ('minion4', 'Red', 'Caster'),
        ('minion5', 'Blue', 'Siege');
 

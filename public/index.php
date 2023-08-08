@@ -6,7 +6,7 @@ $db = new PDO('sqlite:../database/LOL.db');
 $query = $db->query("SELECT * FROM Summoner");
 $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
 
-$id = $_POST['ID'];
+$id = $_GET['id'];
 // HTML for displaying the Summoner table
 ?>
 
@@ -34,7 +34,7 @@ $id = $_POST['ID'];
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="profile.php?id=<?php echo $id?>">Profile</a></li>
                 <li class="nav-item"><a class="nav-link" href="ingame.php?id=<?php echo $id?>">In Game Info</a></li>
-                <li class="nav-item"><a class="nav-link" href="champions.php>">Champions</a></li>
+                <li class="nav-item"><a class="nav-link" href="champions.php">Champions</a></li>
                 <li class="nav-item"><a class="nav-link" href="store.php?id=<?php echo $id?>">Store</a></li>
                 <li class="nav-item"><a class="nav-link" href="login.php">Log out</a></li>
             </ul>
