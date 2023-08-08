@@ -194,6 +194,81 @@ $abilities = $query_abilities->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </div>
         <a class="btn btn-primary mt-3" href="champions.php">Back to Champions List</a>
-    </div>
+        
+      <h2 class="centered-title">Manage Abilities:</h2>
+        <form action="save_abilities.php" method="post" id="manage-ability-form">
+            <input type="hidden" name="champion_name" value="<?= htmlspecialchars($champion_name) ?>">
+            <label>
+                <input type="radio" name="action" value="edit" checked onchange="toggleAbilitySelection(true); prepareEditAbility();">
+                Edit Ability
+            </label>
+            <label>
+                <input type="radio" name="action" value="add" onchange="toggleAbilitySelection(false); prepareAddAbility();">
+                Add New Ability
+            </label>
+            
+            <div id="ability-selection">
+                <label for="ability_name">Select Ability to Edit:</label>
+                <select id="ability_name" name="ability_name" required onchange="loadAbilityInfo(this.value);">
+                    <?php foreach ($abilities as $ability): ?>
+                        <option value="<?= htmlspecialchars($ability['ability_name']) ?>"><?= htmlspecialchars($ability['ability_name']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <!-- Edit or Add Ability Fields --> <br>
+            <label for="edit_ability_name">Ability Name:</label>
+            <input type="text" id="edit_ability_name" name="edit_ability_name" required><br>
+            <label for="cooldown">Cooldown:</label>
+            <input type="number" id="cooldown" name="cooldown" required><br>
+            <label for="key">Key:</label>
+            <input type="text" id="key" name="key" required><br>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" cols="50" rows="10" required></textarea><br>
+            <label for="image_url">Image URL:</label>
+            <input type="text" id="image_url" name="image_url" required><br>
+            <button type="submit" id="submit-button">Save Changes</button>
+        </form>
+
+        <script>
+            var abilities = <?= json_encode($abilities) ?>; // Convert PHP abilities array to JavaScript object
+
+            function toggleAbilitySelection(show) {
+                document.getElementById('ability-selection').style.display = show ? 'block' : 'none';
+                document.getElementById('submit-button').innerText = show ? 'Save Changes' : 'Add Ability';
+                if (show) {
+                    prepareEditAbility();
+                } else {
+                    prepareAddAbility();
+                }
+            }
+
+            function prepareEditAbility() {
+                var selectedAbility = document.getElementById('ability_name').value;
+                loadAbilityInfo(selectedAbility);
+            }
+
+            function prepareAddAbility() {
+                document.getElementById('edit_ability_name').value = '';
+                document.getElementById('cooldown').value = '';
+                document.getElementById('key').value = '';
+                document.getElementById('description').value = '';
+                document.getElementById('image_url').value = ''; 
+            }
+
+            function loadAbilityInfo(abilityName) {
+                var ability = abilities.find(function(ability) { return ability.ability_name === abilityName; });
+                if (ability) {
+                    document.getElementById('edit_ability_name').value = ability.ability_name;
+                    document.getElementById('cooldown').value = ability.cooldown;
+                    document.getElementById('key').value = ability.key;
+                    document.getElementById('description').value = ability.description;
+                    document.getElementById('image_url').value = ability.image_url; 
+                }
+            }
+
+            prepareEditAbility(); // Initialize the form with the selected ability
+        </script>
+
 </body>
 </html>
