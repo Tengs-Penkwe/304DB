@@ -155,7 +155,22 @@ VALUES ('Uzi', 'Yasuo', 'Kills', 12),
        ('Rookie', 'Riven', 'Assists', 10),
        ('Rookie', 'Riven', 'Deads', 8),
        ('Rookie', 'Riven', 'Roaming score', 3),
-       ('Rookie', 'Riven', 'Gold earned', 9000);
+       ('Rookie', 'Riven', 'Gold earned', 9000),
+       ('Caps', 'Lee Sin', 'Kills', 15),
+       ('Caps', 'Lee Sin', 'Assists', 9),
+       ('Caps', 'Lee Sin', 'Deads', 4),
+       ('Caps', 'Lee Sin', 'Roaming score', 5),
+       ('Caps', 'Lee Sin', 'Gold earned', 11000),
+       ('Lwx', 'Amumu', 'Kills', 4),
+       ('Lwx', 'Amumu', 'Assists', 20),
+       ('Lwx', 'Amumu', 'Deads', 2),
+       ('Lwx', 'Amumu', 'Roaming score', 7),
+       ('Lwx', 'Amumu', 'Gold earned', 8500),
+       ('Rookie', 'Thresh', 'Kills', 2),
+       ('Rookie', 'Thresh', 'Assists', 25),
+       ('Rookie', 'Thresh', 'Deads', 1),
+       ('Rookie', 'Thresh', 'Roaming score', 8),
+       ('Rookie', 'Thresh', 'Gold earned', 7000);
 
 INSERT INTO StoreVisit(storeID, promotion, id)
 VALUES ('store 1', '20', 'Uzi'),
@@ -213,3 +228,28 @@ VALUES ('WAY OF THE WANDERER', 60, 'P', 'Yasuo’s resolve hardens as he moves, 
        ('KI BURST', 40, 'W', 'Riven emits a Ki Burst, damaging and stunning nearby enemies. The radius of effect increases with each ability rank.', 'Riven'),
        ('VALOR', 5, 'E', 'Riven steps forward a short distance and gains a shield, absorbing incoming damage.', 'Riven'),
        ('BLADE OF THE EXILE', 120, 'R', 'Riven empowers her keepsake weapon with energy, extending her attack range and granting her bonus attack damage. She can also activate this ability to perform Wind Slash, dealing physical damage to all enemies hit.', 'Riven');
+
+-- Thresh Abilities
+INSERT INTO AbilityOwned(ability_name, cooldown, key, description, champion_name)
+VALUES ('DAMNATION', 60, 'P', 'Thresh collects the souls of dead enemies, granting him armor and ability power.', 'Thresh'),
+       ('DEATH SENTENCE', 12, 'Q', 'Thresh throws his scythe, latching on to the first enemy hit, damaging and stunning them.', 'Thresh'),
+       ('DARK PASSAGE', 22, 'W', 'Thresh throws a lantern that shields allies and can pull them to his location.', 'Thresh'),
+       ('FLAY', 9, 'E', 'Thresh sweeps his chain in a line, damaging and knocking back enemies.', 'Thresh'),
+       ('THE BOX', 140, 'R', 'Thresh creates a prison of spectral walls around him, damaging and slowing enemies that pass through the walls.', 'Thresh');
+
+-- Amumu Abilities
+INSERT INTO AbilityOwned(ability_name, cooldown, key, description, champion_name)
+VALUES ('CURSED TOUCH', 10, 'P', 'Amumu’s attacks reduce the target’s magic resistance for a short duration.', 'Amumu'),
+       ('BANDAGE TOSS', 16, 'Q', 'Amumu tosses a sticky bandage at a target, stunning and damaging the target while pulling himself to them.', 'Amumu'),
+       ('DESPAIR', 1, 'W', 'Amumu weeps, dealing magic damage to surrounding enemies every second.', 'Amumu'),
+       ('TANTRUM', 8, 'E', 'Amumu deals magic damage to surrounding enemies. Each time Amumu is hit, the cooldown on Tantrum is reduced.', 'Amumu'),
+       ('CURSE OF THE SAD MUMMY', 150, 'R', 'Amumu entangles surrounding enemy units, dealing magic damage and stunning them.', 'Amumu');
+
+-- Lee Sin Abilities
+INSERT INTO AbilityOwned(ability_name, cooldown, key, description, champion_name)
+VALUES ('FLURRY', 60, 'P', 'After Lee Sin uses an ability, his next two basic attacks gain attack speed and return energy.', 'Lee Sin'),
+       ('SONIC WAVE', 11, 'Q', 'Lee Sin shoots a wave of sound, damaging the first enemy it hits. He can then activate Resonating Strike to dash to the marked target.', 'Lee Sin'),
+       ('SAFEGUARD', 14, 'W', 'Lee Sin dashes to a target ally, shielding them both from damage. He can then cast Iron Will to heal himself.', 'Lee Sin'),
+       ('TEMPEST', 10, 'E', 'Lee Sin smashes the ground, sending out a shockwave that damages and slows enemies.', 'Lee Sin'),
+       ('DRAGON’S RAGE', 90, 'R', 'Lee Sin performs a powerful roundhouse kick, launching his target back and damaging enemies they collide with.', 'Lee Sin');
+
