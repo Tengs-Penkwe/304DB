@@ -8,6 +8,11 @@ $query->execute();
 
 $champions = $query->fetchAll(PDO::FETCH_ASSOC);
 
+// Define tables related to champions
+$tables = [
+    'ChampionBCNF', 'AbilityOwned', 'Play', 'Owns', 'SkinDecorateBCNF', 'Sell1'
+];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['minAbilities'])) {
         $minAbilities = $_POST['minAbilities'];
@@ -23,6 +28,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $query = $db->prepare("SELECT champion_name FROM AbilityOwned WHERE key = :key GROUP BY champion_name");
         $query->execute(['key' => $key]);
         $champions_with_ability = $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+   if (isset($_POST['table']) && isset($_POST['field']) && isset($_POST['condition']) && isset($_POST['value'])) {
+        $table = $_POST['table'];
+        $field = $_POST['field'];
+        $condition = $_POST['condition'];
+        $value = $_POST['value'];
+
+        $query_string = "SELECT * FROM $table WHERE $field $condition :value";
+        $query = $db->prepare($query_string);
+        $query->execute(['value' => $value]);
+
+        $user_defined_results = $query->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 ?>
@@ -127,7 +145,87 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endforeach; ?>
         </table>
         <?php endif; ?>
+
+        <div class="container">
+            <form action="" method="post">
+                <h1>Find Information</h1>
+                <div style="margin-bottom: 20px;">
+                    <label>Select Table:</label><br>
+                    <select name="table" id="table" onchange="loadFields()" style="width:100%; padding: 10px; font-size: 18px;">
+                        <?php foreach ($tables as $table): ?>
+                            <option value="<?= $table ?>"><?= $table ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label>Select Field:</label><br>
+                    <select name="field" id="field" style="width:100%; padding: 10px; font-size: 18px;"></select>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label>Select Condition:</label><br>
+                    <select name="condition" style="width:100%; padding: 10px; font-size: 18px;">
+                        <option value="=">=</option>
+                        <option value=">">></option>
+                        <option value="<"><</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label>Enter Value:</label><br>
+                    <input type="text" name="value" required style="width:100%; padding: 10px; font-size: 18px;">
+                </div>
+
+                <button type="submit" style="padding: 15px; font-size: 18px; cursor: pointer; background-color: #0066cc; color: white; border: none; border-radius: 5px; width: 100%;">Execute Query</button>
+            </form>
+            <?php if (isset($user_defined_results) && count($user_defined_results) > 0): ?>
+                <h2>User Defined Query Results</h2>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <?php foreach ($user_defined_results[0] as $key => $value): ?>
+                                <th style="padding: 10px; border: 1px solid #ccc; text-align: left;"><?= htmlspecialchars($key) ?></th>
+                            <?php endforeach; ?>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($user_defined_results as $row): ?>
+                            <tr>
+                                <?php foreach ($row as $cell): ?>
+                                    <td style="padding: 10px; border: 1px solid #ccc;"><?= htmlspecialchars($cell) ?></td>
+                                <?php endforeach; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+        </div>
     </div>
+    <script>
+        function loadFields() {
+            var table = document.getElementById('table').value;
+            var fieldsDropdown = document.getElementById('field');
+            fieldsDropdown.options.length = 0; // Clear existing options
+            
+            // Define fields based on the selected table
+            var fields = {
+                'ChampionBCNF': ['name', 'cost', 'epithet', 'region'],
+                'AbilityOwned': ['ability_name', 'cooldown', 'key', 'description', 'champion_name'],
+                'Play': ['id', 'name'],
+                'Owns': ['id', 'skin_name'],
+                'SkinDecorateBCNF': ['skin_name', 'type', 'champion_name'],
+                'Sell1': ['name', 'storeID']
+            };
+            
+            var selectedFields = fields[table];
+            selectedFields.forEach(function(field) {
+                var option = document.createElement('option');
+                option.value = field;
+                option.text = field;
+                fieldsDropdown.add(option);
+            });
+        }
+    </script>
 </body>
 </html>
-
