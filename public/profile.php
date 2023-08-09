@@ -106,47 +106,105 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
         </table>
     </div>
 
+<script type="text/html" id="table">
+    <table class="table table-hover table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Champion lover</td>
+            <td>Have at least 2 skins for 1 champion</td>
+            <?php
+            $result = $db->prepare("select champion_name from Owns O, SkinDecorateBCNF S
+                where O.skin_name = S.skin_name and id = ? group by champion_name having count(*) >= 2;");
+            $result->execute([$id]);
+            $result = $result->fetchAll(PDO::FETCH_ASSOC);
+            if (sizeof($result) > 0):?>
+            <td>
+                <?php foreach ($result as $champion): ?>
+                <p><?= $champion['champion_name'] ?></p>
+                <?php endforeach; ?>
+            </td>
+            <?php else: ?>
+            <td>Not owned</td>
+            <?php endif; ?>
+        </tr>
+        <tr>
+            <td>Collector</td>
+            <td>Have all skins</td>
+            <?php
+            $result = $db->prepare("select * from Owns as O where O.id = ? and not exists (select * from SkinDecorateBCNF as S where not
+        exists (select * from Owns as OW where OW.id = O.id and OW.skin_name = S.skin_name))");
+            $result->execute([$id]);
+            $result = $result->fetchAll(PDO::FETCH_ASSOC);
+            if (sizeof($result) > 0):?>
+            <td>Title achieved!</td>
+            <?php else: ?>
+            <td>Not owned</td>
+            <?php endif; ?>
+        </tr>
+        </tbody>
+    </table>
+</script>
 
+<div class="container mt-5" id="title">
+    <h1 class="text-center">Titles</h1>
+    <button class="appendTable" onclick="this.style.display='none'">Click to view your titles</button>
+</div>
+
+
+<script type="text/html" id="append">
+    <div class="container" id="summary">
+    <div class="row">
+        <div class="col-md-4 feature">
+            <?php $count = $db->prepare("select count(*) as number from Owns O, SkinDecorateBCNF S
+                where O.skin_name = S.skin_name and type = 'Epic' and id = ? group by id;");
+            $count->execute([$id]);
+            $count = $count->fetchAll(PDO::FETCH_ASSOC);
+            if (sizeof($count) > 0) :?>
+                <h3>Epic Skin: <?= $count[0]['number'];?></h3>
+            <?php else:?>
+                <h3>Epic Skin: 0</h3>
+            <?php endif;?>
+        </div>
+        <div class="col-md-4 feature">
+            <?php $count = $db->prepare("select count(*) as number from Owns O, SkinDecorateBCNF S
+                where O.skin_name = S.skin_name and type = 'Legendary' and id = ? group by id;");
+            $count->execute([$id]);
+            $count = $count->fetchAll(PDO::FETCH_ASSOC);
+            if (sizeof($count) > 0) :?>
+                <h3>Legendary Skin: <?= $count[0]['number'];?></h3>
+            <?php else:?>
+                <h3>Legendary Skin: 0</h3>
+            <?php endif;?>
+        </div>
+        <div class="col-md-4 feature">
+            <?php $count = $db->prepare("select count(*) as number from Owns O, SkinDecorateBCNF S
+                where O.skin_name = S.skin_name and type = 'Mythic' and id = ? group by id;");
+            $count->execute([$id]);
+            $count = $count->fetchAll(PDO::FETCH_ASSOC);
+            if (sizeof($count) > 0) :?>
+                <h3>Mythic Skin: <?= $count[0]['number'];?></h3>
+            <?php else:?>
+                <h3>Mythic Skin: 0</h3>
+            <?php endif;?>
+        </div>
+    </div>
+    </div>
+</script>
+
+
+    <div class="container mt-5" id="summary">
+        <h1 class="text-center">Skin Collection</h1>
+        <button class="appendDiv" id="buttonHide" onclick="this.style.display='none'">Click to view your collection summary</button>
+    </div>
 
     <div class="container mt-5">
-        <h1 class="text-center">Skin Collection</h1>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 feature">
-                    <?php $count = $db->prepare("select count(*) as number from Owns O, SkinDecorateBCNF S
-                where O.skin_name = S.skin_name and type = 'Epic' and id = ? group by id;");
-                    $count->execute([$id]);
-                    $count = $count->fetchAll(PDO::FETCH_ASSOC);
-                    if (sizeof($count) > 0) :?>
-                    <h3>Epic Skin: <?= $count[0]['number'];?></h3>
-                    <?php else:?>
-                        <h3>Epic Skin: 0</h3>
-                    <?php endif;?>
-                </div>
-                <div class="col-md-4 feature">
-                    <?php $count = $db->prepare("select count(*) as number from Owns O, SkinDecorateBCNF S
-                where O.skin_name = S.skin_name and type = 'Legendary' and id = ? group by id;");
-                    $count->execute([$id]);
-                    $count = $count->fetchAll(PDO::FETCH_ASSOC);
-                    if (sizeof($count) > 0) :?>
-                        <h3>Legendary Skin: <?= $count[0]['number'];?></h3>
-                    <?php else:?>
-                        <h3>Legendary Skin: 0</h3>
-                    <?php endif;?>
-                </div>
-                <div class="col-md-4 feature">
-                    <?php $count = $db->prepare("select count(*) as number from Owns O, SkinDecorateBCNF S
-                where O.skin_name = S.skin_name and type = 'Mythic' and id = ? group by id;");
-                    $count->execute([$id]);
-                    $count = $count->fetchAll(PDO::FETCH_ASSOC);
-                    if (sizeof($count) > 0) :?>
-                        <h3>Mythic Skin: <?= $count[0]['number'];?></h3>
-                    <?php else:?>
-                        <h3>Mythic Skin: 0</h3>
-                    <?php endif;?>
-                </div>
-            </div>
-        </div>
         <table class="table table-hover table-bordered">
             <thead class="thead-dark">
             <tr>
@@ -167,19 +225,30 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
                     $query = $db->prepare("SELECT image_url FROM EntityImages WHERE entity_name =? AND entity_type='Skin'");
                     $query->execute([$skin]);
                     $result = $query->fetch();
-                ?>
-                <tr>
-                    <td><?= htmlspecialchars($skin_info[0]['skin_name']) ?></td>
-                    <td><img src="<?= htmlspecialchars($result['image_url']) ?>" alt="Image of <?= htmlspecialchars($skin_info[0]['type']) ?>" width="400" height="200"></td>
-                    <td><?= htmlspecialchars($skin_info[0]['type']) ?></td>
-                    <td><?= htmlspecialchars($skin_info[0]['cost']) ?></td>
-                </tr>
+                    ?>
+                    <tr>
+                        <td><?= htmlspecialchars($skin_info[0]['skin_name']) ?></td>
+                        <td><img src="<?= htmlspecialchars($result['image_url']) ?>" alt="Image of <?= htmlspecialchars($skin_info[0]['type']) ?>" width="400" height="200"></td>
+                        <td><?= htmlspecialchars($skin_info[0]['type']) ?></td>
+                        <td><?= htmlspecialchars($skin_info[0]['cost']) ?></td>
+                    </tr>
                 <?php endforeach; ?>
             <?php endforeach; ?>
             </tbody>
         </table>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script>
+        $(".appendDiv").click(function() {
+            let template = $('#append').html();
+            $("#summary").append(template);
+        });
+
+        $(".appendTable").click(function() {
+            let table = $('#table').html();
+            $("#title").append(table);
+        });
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
