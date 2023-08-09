@@ -1,13 +1,24 @@
 <?php
-// Connect to the SQLite database
-$db = new PDO('sqlite:../database/LOL.db');
+require '../config/database.php';
 
-// Query the Summoner table
-$query = $db->query("SELECT * FROM Summoner");
-$summoners = $query->fetchAll(PDO::FETCH_ASSOC);
+// Connect to the SQLite database
+$db = getDBConnection();
+
 
 $id = $_GET['id'];
 // HTML for displaying the Summoner table
+$selected_columns = [];
+if (isset($_POST['columns'])) {
+    $selected_columns = $_POST['columns'];
+}
+
+$columns_sql = empty($selected_columns) ? "*" : implode(",", $selected_columns);
+
+// Query the Summoner table
+$query = $db->query("SELECT $columns_sql FROM Summoner");
+$summoners = $query->fetchAll(PDO::FETCH_ASSOC);
+
+$id = $_GET['id'];
 ?>
 
 <!DOCTYPE html>
@@ -65,22 +76,30 @@ $id = $_GET['id'];
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <div class="container mt-5">
         <h1 class="text-center">Summoners</h1>
+        <form method="post" class="mb-3">
+            <label>Select columns to show:</label>
+            <input type="checkbox" name="columns[]" value="id" <?= in_array('id', $selected_columns) ? 'checked' : '' ?>> ID
+            <input type="checkbox" name="columns[]" value="level" <?= in_array('level', $selected_columns) ? 'checked' : '' ?>> Level
+            <input type="checkbox" name="columns[]" value="rank" <?= in_array('rank', $selected_columns) ? 'checked' : '' ?>> Rank
+            <input type="checkbox" name="columns[]" value="money" <?= in_array('money', $selected_columns) ? 'checked' : '' ?>> Money
+            <button type="submit" class="btn btn-primary">Show</button>
+        </form>
         <table class="table table-striped table-bordered">
             <thead class="thead-dark">
                 <tr>
-                    <th>ID</th>
-                    <th>Level</th>
-                    <th>Rank</th>
-                    <th>Money</th>
+                    <?php if (in_array('id', $selected_columns) || empty($selected_columns)): ?><th>ID</th><?php endif; ?>
+                    <?php if (in_array('level', $selected_columns) || empty($selected_columns)): ?><th>Level</th><?php endif; ?>
+                    <?php if (in_array('rank', $selected_columns) || empty($selected_columns)): ?><th>Rank</th><?php endif; ?>
+                    <?php if (in_array('money', $selected_columns) || empty($selected_columns)): ?><th>Money</th><?php endif; ?>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($summoners as $summoner): ?>
                     <tr>
-                        <td><?= htmlspecialchars($summoner['id']) ?></td>
-                        <td><?= htmlspecialchars($summoner['level']) ?></td>
-                        <td><?= htmlspecialchars($summoner['rank']) ?></td>
-                        <td><?= htmlspecialchars($summoner['money']) ?></td>
+                        <?php if (in_array('id', $selected_columns) || empty($selected_columns)): ?><td><?= htmlspecialchars($summoner['id']) ?></td><?php endif; ?>
+                        <?php if (in_array('level', $selected_columns) || empty($selected_columns)): ?><td><?= htmlspecialchars($summoner['level']) ?></td><?php endif; ?>
+                        <?php if (in_array('rank', $selected_columns) || empty($selected_columns)): ?><td><?= htmlspecialchars($summoner['rank']) ?></td><?php endif; ?>
+                        <?php if (in_array('money', $selected_columns) || empty($selected_columns)): ?><td><?= htmlspecialchars($summoner['money']) ?></td><?php endif; ?>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
