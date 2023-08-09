@@ -106,7 +106,66 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
         </table>
     </div>
 
-<script type="text/html" id="table">
+<script type="text/html" id="lover">
+    <tr>
+        <td>Champion lover</td>
+        <td>Have at least 2 skins for 1 champion</td>
+        <?php
+        $result = $db->prepare("select champion_name from Owns O, SkinDecorateBCNF S
+                where O.skin_name = S.skin_name and id = ? group by champion_name having count(*) >= 2;");
+        $result->execute([$id]);
+        $result = $result->fetchAll(PDO::FETCH_ASSOC);
+        if (sizeof($result) > 0):?>
+            <td>
+                <?php foreach ($result as $champion): ?>
+                    <p>Title achieved for <?= $champion['champion_name'] ?></p>
+                <?php endforeach; ?>
+            </td>
+        <?php else: ?>
+            <td>Not owned</td>
+        <?php endif; ?>
+    </tr>
+</script>
+
+<script type="text/html" id="collector">
+    <tr>
+        <td>Collector</td>
+        <td>Have all skins</td>
+        <?php
+        $result = $db->prepare("select * from Owns as O where O.id = ? and not exists (select * from SkinDecorateBCNF as S where not
+        exists (select * from Owns as OW where OW.id = O.id and OW.skin_name = S.skin_name))");
+        $result->execute([$id]);
+        $result = $result->fetchAll(PDO::FETCH_ASSOC);
+        if (sizeof($result) > 0):?>
+        <td>Title achieved!</td>
+        <?php else: ?>
+        <td>Not owned</td>
+        <?php endif; ?>
+    </tr>
+</script>
+
+<script type="text/html" id="hunter">
+    <tr>
+        <td>Skin hunter</td>
+        <td>Have more skins than all other summoners combined</td>
+        <?php
+        $result = $db->prepare("select O1.id from Owns O1 group by O1.id having O1.id = ? and count(*) > 
+                                                (select count(*) from Owns O2 where O2.id != ?)");
+        $result->execute([$id, $id]);
+        $result = $result->fetchAll(PDO::FETCH_ASSOC);
+        if (sizeof($result) > 0):?>
+            <td>Title achieved!</td>
+        <?php else: ?>
+            <td>Not owned</td>
+        <?php endif; ?>
+    </tr>
+</script>
+
+<div class="container mt-5">
+    <h1 class="text-center">Titles</h1>
+    <button class="appendLover" onclick="this.style.display='none'">Click to see if you have champion lover title</button>
+    <button class="appendCollector" onclick="this.style.display='none'">Click to see if you have collector title</button>
+    <button class="appendHunter" onclick="this.style.display='none'">Click to see if you have skin hunter title</button>
     <table class="table table-hover table-bordered">
         <thead class="thead-dark">
         <tr>
@@ -115,46 +174,10 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
             <th>Status</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>Champion lover</td>
-            <td>Have at least 2 skins for 1 champion</td>
-            <?php
-            $result = $db->prepare("select champion_name from Owns O, SkinDecorateBCNF S
-                where O.skin_name = S.skin_name and id = ? group by champion_name having count(*) >= 2;");
-            $result->execute([$id]);
-            $result = $result->fetchAll(PDO::FETCH_ASSOC);
-            if (sizeof($result) > 0):?>
-            <td>
-                <?php foreach ($result as $champion): ?>
-                <p><?= $champion['champion_name'] ?></p>
-                <?php endforeach; ?>
-            </td>
-            <?php else: ?>
-            <td>Not owned</td>
-            <?php endif; ?>
-        </tr>
-        <tr>
-            <td>Collector</td>
-            <td>Have all skins</td>
-            <?php
-            $result = $db->prepare("select * from Owns as O where O.id = ? and not exists (select * from SkinDecorateBCNF as S where not
-        exists (select * from Owns as OW where OW.id = O.id and OW.skin_name = S.skin_name))");
-            $result->execute([$id]);
-            $result = $result->fetchAll(PDO::FETCH_ASSOC);
-            if (sizeof($result) > 0):?>
-            <td>Title achieved!</td>
-            <?php else: ?>
-            <td>Not owned</td>
-            <?php endif; ?>
-        </tr>
+        <tbody id="title">
+
         </tbody>
     </table>
-</script>
-
-<div class="container mt-5" id="title">
-    <h1 class="text-center">Titles</h1>
-    <button class="appendTable" onclick="this.style.display='none'">Click to view your titles</button>
 </div>
 
 
@@ -244,8 +267,18 @@ $summoners = $query->fetchAll(PDO::FETCH_ASSOC);
             $("#summary").append(template);
         });
 
-        $(".appendTable").click(function() {
-            let table = $('#table').html();
+        $(".appendLover").click(function() {
+            let table = $('#lover').html();
+            $("#title").append(table);
+        });
+
+        $(".appendCollector").click(function() {
+            let table = $('#collector').html();
+            $("#title").append(table);
+        });
+
+        $(".appendHunter").click(function() {
+            let table = $('#hunter').html();
             $("#title").append(table);
         });
     </script>

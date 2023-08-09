@@ -191,7 +191,9 @@ VALUES ('Rookie', 'PROJECT Yasuo'),
        ('Uzi', 'PROJECT Yasuo'),
        ('Caps', 'NIGHTBRINGER Lee Sin'),
        ('Lwx', 'HEXTECH Amumu'),
-       ('Rookie', 'BLOOD MOON Yasuo');
+       ('Rookie', 'BLOOD MOON Yasuo'),
+       ('Rookie', 'NIGHTBRINGER Lee Sin'),
+       ('Rookie', 'HEXTECH Amumu');
 
 INSERT INTO SkinDecorateBCNF(skin_name, type, champion_name)
 VALUES ('PROJECT Yasuo', 'Epic', 'Yasuo'),
