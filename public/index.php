@@ -6,6 +6,13 @@ $db = getDBConnection();
 
 
 $id = $_GET['id'];
+$user = $db->prepare("SELECT * FROM Summoner where id = ?");
+$user->execute([$id]);
+$user = $user->fetchAll(PDO::FETCH_ASSOC);
+if (sizeof($user) == 0) {
+    header("Location: user_not_found.php");
+    exit();
+}
 // HTML for displaying the Summoner table
 $selected_columns = [];
 if (isset($_POST['columns'])) {

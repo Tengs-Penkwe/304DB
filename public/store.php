@@ -15,6 +15,10 @@ $skins = $db->prepare("SELECT * FROM StoreVisit SV, Sell2 S, SkinDecorateBCNF SD
 $skins->execute([$id]);
 $skins = $skins->fetchAll(PDO::FETCH_ASSOC);
 
+if (sizeof($result) == 0) {
+    $store = $skins[0]["storeID"];
+}
+
 ?>
 
 <!DOCTYPE html>
