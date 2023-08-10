@@ -198,18 +198,45 @@ VALUES ('store 1', '20', 'Uzi'),
        ('store 5', '20', 'Lwx');
 
 INSERT INTO Sell1(name, storeID)
-VALUES ('Yasuo', 'store 1'),
+VALUES ('Riven', 'store 1'),
+       ('Lee Sin', 'store 1'),
+       ('Thresh', 'store 1'),
+       ('Amumu', 'store 1'),
        ('Lee Sin', 'store 2'),
        ('Thresh', 'store 2'),
+       ('Amumu', 'store 2'),
        ('Thresh', 'store 3'),
+       ('Amumu', 'store 3'),
+       ('Yasuo', 'store 3'),
+       ('Riven', 'store 3'),
+       ('Lee Sin', 'store 3'),
        ('Amumu', 'store 4'),
-       ('Lee Sin', 'store 5');
+       ('Yasuo', 'store 4'),
+       ('Riven', 'store 4'),
+       ('Thresh', 'store 4'),
+       ('Lee Sin', 'store 5'),
+       ('Yasuo', 'store 5'),
+       ('Riven', 'store 5'),
+       ('Thresh', 'store 5');
 
 INSERT INTO Sell2(name, storeID)
 VALUES ('PROJECT Yasuo', 'store 1'),
-       ('NIGHTBRINGER Lee Sin', 'store 2'),
+       ('NIGHTBRINGER Lee Sin', 'store 1'),
+       ('HEXTECH Amumu', 'store 1'),
+       ('PULSEFIRE Thresh', 'store 1'),
+       ('PULSEFIRE Thresh', 'store 2'),
        ('HEXTECH Amumu', 'store 3'),
+       ('PROJECT Yasuo', 'store 3'),
+       ('NIGHTBRINGER Lee Sin', 'store 3'),
+       ('PULSEFIRE Thresh', 'store 3'),
+       ('BLOOD MOON Yasuo', 'store 3'),
        ('PULSEFIRE Thresh', 'store 4'),
+       ('HEXTECH Amumu', 'store 4'),
+       ('PROJECT Yasuo', 'store 4'),
+       ('BLOOD MOON Yasuo', 'store 4'),
+       ('PROJECT Yasuo', 'store 5'),
+       ('PULSEFIRE Thresh', 'store 5'),
+       ('NIGHTBRINGER Lee Sin', 'store 5'),
        ('BLOOD MOON Yasuo', 'store 5');
 
 INSERT INTO TypeCost(type, cost)
@@ -221,7 +248,7 @@ VALUES ('Ultimate', 3250),
 
 INSERT INTO Owns(id, skin_name)
 VALUES ('Rookie', 'PROJECT Yasuo'),
-       ('Uzi', 'PROJECT Yasuo'),
+       ('Uzi', 'BLOOD MOON Yasuo'),
        ('Caps', 'NIGHTBRINGER Lee Sin'),
        ('Lwx', 'HEXTECH Amumu'),
        ('Rookie', 'BLOOD MOON Yasuo'),
